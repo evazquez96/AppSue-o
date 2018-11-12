@@ -1,0 +1,39 @@
+﻿<div style="width:100%;height:100%">
+    <div data-dojo-type="dijit/layout/BorderContainer"
+         style="width:100%;height:100%"
+         data-dojo-attach-point="bitacoraContenedorWidget">
+        <div data-dojo-type="dijit/layout/ContentPane"
+             data-dojo-attach-point="filtroBitacora"
+             style="width:20%!important"
+             data-dojo-props="region:'top'">
+            <div data-dojo-type="dojox/layout/TableContainer"
+                 style="width:20%!important"
+                 data-dojo-props="cols:2,showLabels:false">
+                <div data-dojo-type="dijit/form/DateTextBox"
+                     data-dojo-attach-point="fechaInicioWidget">
+                </div>
+                <div data-dojo-type="dijit/form/TimeTextBox"
+                     data-dojo-attach-point="fechaInicioTimeWidget">
+                </div>
+                <div data-dojo-type="dijit/form/DateTextBox"
+                     data-dojo-attach-point="fechafinWidget">
+                </div>
+                <div data-dojo-type="dijit/form/TimeTextBox"
+                     data-dojo-attach-point="fechaFinTimeWidget">
+                </div>
+                <div data-dojo-type="dijit/form/Button"
+                     data-dojo-attach-point="buscarWidget"
+                     data-dojo-props="label:'Buscar'">
+                </div>
+                <div data-dojo-type="dijit/form/Button"
+                     data-dojo-attach-point="nuevoWidget"
+                     data-dojo-props="label:'Nuevo'">
+                </div>
+            </div>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane"
+             data-dojo-attach-point="gridBitacora"
+             data-dojo-props="region:'center'">
+        </div>
+    </div>
+</div>

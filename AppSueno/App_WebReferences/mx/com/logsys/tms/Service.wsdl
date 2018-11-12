@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://app.mexamerik.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://app.mexamerik.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://app.mexamerik.com">
+      <s:element name="insertaSuenoEnActivo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_evento_arriba" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="id_evento_abajo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentarios" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inicio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fin" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="esPrimero" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertaSuenoEnActivoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="insertaSuenoEnActivoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertaSueno">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id_evento" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="comentarios" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="inicio" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="fin" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="insertaSuenoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="insertaSuenoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEventosOperador">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Id_Operador" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha_Inicio" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Fecha_Fin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEventosOperadorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEventosOperadorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMonitor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="a1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="a2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="b1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="b2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="c1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="c2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="d1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="d2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="e1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="e2" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="nombre" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMonitorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMonitorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRegistroBitacora">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="user_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="alias_unidad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="solicitud" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getRegistroBitacoraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getRegistroBitacoraResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="insertaSuenoEnActivoSoapIn">
+    <wsdl:part name="parameters" element="tns:insertaSuenoEnActivo" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoEnActivoSoapOut">
+    <wsdl:part name="parameters" element="tns:insertaSuenoEnActivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoSoapIn">
+    <wsdl:part name="parameters" element="tns:insertaSueno" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoSoapOut">
+    <wsdl:part name="parameters" element="tns:insertaSuenoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEventosOperador" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEventosOperadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMonitor" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMonitorResponse" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraSoapIn">
+    <wsdl:part name="parameters" element="tns:getRegistroBitacora" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraSoapOut">
+    <wsdl:part name="parameters" element="tns:getRegistroBitacoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoEnActivoHttpGetIn">
+    <wsdl:part name="id_evento_arriba" type="s:string" />
+    <wsdl:part name="id_evento_abajo" type="s:string" />
+    <wsdl:part name="comentarios" type="s:string" />
+    <wsdl:part name="inicio" type="s:string" />
+    <wsdl:part name="fin" type="s:string" />
+    <wsdl:part name="esPrimero" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoEnActivoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoHttpGetIn">
+    <wsdl:part name="id_evento" type="s:string" />
+    <wsdl:part name="comentarios" type="s:string" />
+    <wsdl:part name="inicio" type="s:string" />
+    <wsdl:part name="fin" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorHttpGetIn">
+    <wsdl:part name="Id_Operador" type="s:string" />
+    <wsdl:part name="Fecha_Inicio" type="s:string" />
+    <wsdl:part name="Fecha_Fin" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorHttpGetIn">
+    <wsdl:part name="a1" type="s:string" />
+    <wsdl:part name="a2" type="s:string" />
+    <wsdl:part name="b1" type="s:string" />
+    <wsdl:part name="b2" type="s:string" />
+    <wsdl:part name="c1" type="s:string" />
+    <wsdl:part name="c2" type="s:string" />
+    <wsdl:part name="d1" type="s:string" />
+    <wsdl:part name="d2" type="s:string" />
+    <wsdl:part name="e1" type="s:string" />
+    <wsdl:part name="e2" type="s:string" />
+    <wsdl:part name="nombre" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraHttpGetIn">
+    <wsdl:part name="user_id" type="s:string" />
+    <wsdl:part name="alias_unidad" type="s:string" />
+    <wsdl:part name="solicitud" type="s:string" />
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoEnActivoHttpPostIn">
+    <wsdl:part name="id_evento_arriba" type="s:string" />
+    <wsdl:part name="id_evento_abajo" type="s:string" />
+    <wsdl:part name="comentarios" type="s:string" />
+    <wsdl:part name="inicio" type="s:string" />
+    <wsdl:part name="fin" type="s:string" />
+    <wsdl:part name="esPrimero" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoEnActivoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoHttpPostIn">
+    <wsdl:part name="id_evento" type="s:string" />
+    <wsdl:part name="comentarios" type="s:string" />
+    <wsdl:part name="inicio" type="s:string" />
+    <wsdl:part name="fin" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="insertaSuenoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorHttpPostIn">
+    <wsdl:part name="Id_Operador" type="s:string" />
+    <wsdl:part name="Fecha_Inicio" type="s:string" />
+    <wsdl:part name="Fecha_Fin" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEventosOperadorHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorHttpPostIn">
+    <wsdl:part name="a1" type="s:string" />
+    <wsdl:part name="a2" type="s:string" />
+    <wsdl:part name="b1" type="s:string" />
+    <wsdl:part name="b2" type="s:string" />
+    <wsdl:part name="c1" type="s:string" />
+    <wsdl:part name="c2" type="s:string" />
+    <wsdl:part name="d1" type="s:string" />
+    <wsdl:part name="d2" type="s:string" />
+    <wsdl:part name="e1" type="s:string" />
+    <wsdl:part name="e2" type="s:string" />
+    <wsdl:part name="nombre" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMonitorHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraHttpPostIn">
+    <wsdl:part name="user_id" type="s:string" />
+    <wsdl:part name="alias_unidad" type="s:string" />
+    <wsdl:part name="solicitud" type="s:string" />
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="getRegistroBitacoraHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <wsdl:input message="tns:insertaSuenoEnActivoSoapIn" />
+      <wsdl:output message="tns:insertaSuenoEnActivoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <wsdl:input message="tns:insertaSuenoSoapIn" />
+      <wsdl:output message="tns:insertaSuenoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <wsdl:input message="tns:GetEventosOperadorSoapIn" />
+      <wsdl:output message="tns:GetEventosOperadorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <wsdl:input message="tns:GetMonitorSoapIn" />
+      <wsdl:output message="tns:GetMonitorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <wsdl:input message="tns:getRegistroBitacoraSoapIn" />
+      <wsdl:output message="tns:getRegistroBitacoraSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpGet">
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <wsdl:input message="tns:insertaSuenoEnActivoHttpGetIn" />
+      <wsdl:output message="tns:insertaSuenoEnActivoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <wsdl:input message="tns:insertaSuenoHttpGetIn" />
+      <wsdl:output message="tns:insertaSuenoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <wsdl:input message="tns:GetEventosOperadorHttpGetIn" />
+      <wsdl:output message="tns:GetEventosOperadorHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <wsdl:input message="tns:GetMonitorHttpGetIn" />
+      <wsdl:output message="tns:GetMonitorHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <wsdl:input message="tns:getRegistroBitacoraHttpGetIn" />
+      <wsdl:output message="tns:getRegistroBitacoraHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ServiceHttpPost">
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <wsdl:input message="tns:insertaSuenoEnActivoHttpPostIn" />
+      <wsdl:output message="tns:insertaSuenoEnActivoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <wsdl:input message="tns:insertaSuenoHttpPostIn" />
+      <wsdl:output message="tns:insertaSuenoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <wsdl:input message="tns:GetEventosOperadorHttpPostIn" />
+      <wsdl:output message="tns:GetEventosOperadorHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <wsdl:input message="tns:GetMonitorHttpPostIn" />
+      <wsdl:output message="tns:GetMonitorHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <wsdl:input message="tns:getRegistroBitacoraHttpPostIn" />
+      <wsdl:output message="tns:getRegistroBitacoraHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <soap:operation soapAction="http://app.mexamerik.com/insertaSuenoEnActivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <soap:operation soapAction="http://app.mexamerik.com/insertaSueno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <soap:operation soapAction="http://app.mexamerik.com/GetEventosOperador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <soap:operation soapAction="http://app.mexamerik.com/GetMonitor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <soap:operation soapAction="http://app.mexamerik.com/getRegistroBitacora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <soap12:operation soapAction="http://app.mexamerik.com/insertaSuenoEnActivo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <soap12:operation soapAction="http://app.mexamerik.com/insertaSueno" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <soap12:operation soapAction="http://app.mexamerik.com/GetEventosOperador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <soap12:operation soapAction="http://app.mexamerik.com/GetMonitor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <soap12:operation soapAction="http://app.mexamerik.com/getRegistroBitacora" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpGet" type="tns:ServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <http:operation location="/insertaSuenoEnActivo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <http:operation location="/insertaSueno" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <http:operation location="/GetEventosOperador" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <http:operation location="/GetMonitor" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <http:operation location="/getRegistroBitacora" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceHttpPost" type="tns:ServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="insertaSuenoEnActivo">
+      <http:operation location="/insertaSuenoEnActivo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="insertaSueno">
+      <http:operation location="/insertaSueno" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventosOperador">
+      <http:operation location="/GetEventosOperador" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMonitor">
+      <http:operation location="/GetMonitor" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRegistroBitacora">
+      <http:operation location="/getRegistroBitacora" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://tms.logsys.com.mx/bitacoradream/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://tms.logsys.com.mx/bitacoradream/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpGet" binding="tns:ServiceHttpGet">
+      <http:address location="http://tms.logsys.com.mx/bitacoradream/Service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceHttpPost" binding="tns:ServiceHttpPost">
+      <http:address location="http://tms.logsys.com.mx/bitacoradream/Service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

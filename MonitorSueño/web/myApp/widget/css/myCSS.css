@@ -1,0 +1,24 @@
+﻿body, html {
+    width:100%;
+    height:100%;
+}
+
+.platilla {
+    width: 100%;
+    height: 100%;
+}
+.dgrid-cell {
+    width: 100px!important;
+}
+
+.myClass-valueCell{
+    width:50px!important
+
+}
+.myClass-valueCell-3 {
+    width: 50px !important
+}
+
+.field-nombre {
+    width: 250px!important;
+}

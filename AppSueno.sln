@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AppSueno", "AppSueno\", "{80593837-0F33-4BD2-9FA6-241799A4C8DC}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50010"
+		Debug.AspNetCompiler.PhysicalPath = "AppSueno\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50010\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50010"
+		Release.AspNetCompiler.PhysicalPath = "AppSueno\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50010\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50010"
+		SlnRelativePath = "AppSueno\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorSueño", "MonitorSueño\MonitorSueño.csproj", "{F7F6477E-7657-4B4C-B7E3-93C0E56B5EFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80593837-0F33-4BD2-9FA6-241799A4C8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80593837-0F33-4BD2-9FA6-241799A4C8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80593837-0F33-4BD2-9FA6-241799A4C8DC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{80593837-0F33-4BD2-9FA6-241799A4C8DC}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{F7F6477E-7657-4B4C-B7E3-93C0E56B5EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F6477E-7657-4B4C-B7E3-93C0E56B5EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F6477E-7657-4B4C-B7E3-93C0E56B5EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F6477E-7657-4B4C-B7E3-93C0E56B5EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {325CFADC-6CCC-441C-AF50-BF65A5D0D549}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,43 @@
+{
+  "name": "dgrid",
+  "description": "A lightweight, mobile-ready, data-driven, modular widget designed for lists and grids",
+  "keywords": [
+    "dojo",
+    "grid"
+  ],
+  "authors": [
+    "Kris Zyp",
+    "Kenneth G. Franqueiro",
+    "Ed Hager"
+  ],
+  "main": "OnDemandGrid.js",
+  "homepage": "http://dgrid.io",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SitePen/dgrid"
+  },
+  "dependencies": {
+    "dojo": ">=1.8.9",
+    "dstore": "~1.0.3 || ~1.1.1"
+  },
+  "ignore": [
+    ".*",
+    "test"
+  ],
+  "license": [
+    "BSD-3-Clause"
+  ],
+  "moduleType": [
+    "amd"
+  ],
+  "_release": "69b92f2a78",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "69b92f2a78b5e11c6d7dee7e57f2bb7362e06191"
+  },
+  "_source": "https://github.com/SitePen/dgrid.git",
+  "_target": "master",
+  "_originalSource": "dgrid",
+  "_direct": true
+}
