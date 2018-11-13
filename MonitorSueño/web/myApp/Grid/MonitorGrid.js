@@ -6,6 +6,7 @@
     "dojo/when",
     "dojo/request/xhr",
     "dojo/json",
+    "dojo/_base/json",
     "dojo/dom-construct",
     "dojo/Stateful",
     "dstore/Memory",
@@ -28,7 +29,8 @@
     array,
     when,
     request,
-    JSON,
+    J,
+    json,
     domConstruct,
     Stateful,
     Memory,
@@ -64,30 +66,25 @@
 
            
             _initMonitor: function (nombre) {
-
-                var deferred = request.post("http://tms.logsys.com.mx/bitacoradream/Service.asmx/GetMonitor", {
-                    data: {
-                        "a1": "0",
-                        "a2": "10017000",
-                        "b1": "0",
-                        "b2": "1000",
-                        "c1": "0",
-                        "c2": "1000",
-                        "d1": "0",
-                        "d2": "1000",
-                        "e1": "0",
-                        "e2": "1000",
-                        "nombre": nombre
-                    },
-                    handleAs: 'text',
+                
+                var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
+                    data:json.toJson({
+                        "Nombre": null,
+                        "grupo_id": null,
+                        "semaforo_id": null,
+                        "tipo_actividad_id": null,
+                        "tipo_operador_id": null,
+                        "usuario_id": null
+                    }),
+                    handleAs: 'json',
                     headers: {
-                        "Accept": 'application/json'
+                        "Content-Type": 'application/json'
                     }
                 });
                 //debugger;
                 when(deferred,
                     lang.hitch(this, function (response) {
-
+                        debugger
                         aux = response.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "")
                         aux = aux.replace('<string xmlns="http://app.mexamerik.com">', "");
                         aux = aux.replace('</string>', "");
@@ -95,7 +92,7 @@
                          * Lo anterior limpia la cadena ya que por alguna razón no toma la respuesta como
                          * archivo JSON
                          * **/
-                        var json = JSON.parse(aux);
+                        var json = J.parse(aux);
                         /**Una vez limpia la cadena, la convertimos a JSON**/
                         //console.log(json)
                         var aux = []
@@ -105,10 +102,10 @@
                             aux.push(darFormato(item));
                             //console.log(item)
                         });
-                        jstring = JSON.stringify(aux);
+                        jstring = J.stringify(aux);
 
                         var monitorStore = new Memory({
-                            data: JSON.parse(jstring),
+                            data: J.parse(jstring),
                             //id: ['NumEmpleado', 'Fecha'].join("#")
                             idProperty: 'Id'
                         });
