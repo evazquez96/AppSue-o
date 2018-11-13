@@ -53,7 +53,7 @@
                 MonitorHelper.formatoActividadColumn({ field: 'actividad', label: 'Actividad' }),
                 { field: 'tiempoActual', label: 'TiempoActual' },
                 MonitorHelper.formato24SPlan({ field: 'S24', label: '24s' }),
-                { field: 'plan', label: 'Plan' },
+                MonitorHelper.formatoPlan({ field: 'plan', label: 'Plan' }),
                 { field: 'A24', label: '24a' },
                 { field: 'I24', label: '24I' },
                 { field: 'D24', label: '24D' },

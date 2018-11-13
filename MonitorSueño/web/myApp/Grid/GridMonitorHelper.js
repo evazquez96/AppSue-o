@@ -41,6 +41,29 @@
                 return column;
 
             },
+            formatoPlan: function (column) {
+                column.renderCell = function (object, value, cell, options, headers) {
+                    var div = document.createElement("div");
+                    domStyle.set(div, "text-align", "center");
+                    div.innerHTML = object.S24
+                    var z = object.S24.substring(0, 2);
+                    var aux = parseInt(z)
+                    if (aux > 6) {
+                        domStyle.set(div, "background-color", "green");
+                        domStyle.set(cell, "background-color", "green");
+                    } else if (aux > 5 && aux < 6) {
+                        domStyle.set(div, "background-color", "yellow");
+                        domStyle.set(cell, "background-color", "yellow");
+                    } else {
+                        domStyle.set(div, "background-color", "red");
+                        domStyle.set(cell, "background-color", "red");
+                    }
+                    return div;
+                }
+
+                return column;
+
+            },
             formatoActividadColumn: function (column) {
 
                 column.renderCell = function (object, value, cell, options, headers) {
