@@ -71,8 +71,12 @@
                 var domNode = this.domNode;
                 this.inherited(arguments);
                 on(this.operadorWidget, "keyup", lang.hitch(this, function () {
-                    this.master.monitorGrid._initMonitor(this.operadorWidget.displayedValue)
-                   //console.log()
+                    this.master.monitorGrid._initMonitor(this.operadorWidget.displayedValue);
+                    /**
+                     * Se actualiza el grid cada que detecte una tecla sea detectada en el
+                     * ValidationTextBox.
+                     * **/
+                   
                 }));
                 this._initEvents();
             },
