@@ -12,7 +12,7 @@
     "dijit/form/Button",
     "dijit/form/DateTextBox",
     "dijit/form/TimeTextBox",
-    "/web/myApp/Grid/MonitorGrid.js",
+    "/web/myApp/Grid/BitacoraGrid.js",
     "/web/myApp/widget/FiltroMonitorWidget.js",
     "dijit/Dialog",//Dialog que mostrar los registros que tienen errores.
     "dojo/text!/web/myApp/widget/templates/BitacoraMonitorWidget.html",
@@ -43,7 +43,7 @@
         Button,
         DateTextBox,
         TimeTextBox,
-        MonitorGrid,
+        BitacoraGrid,
         Filtro,
         Dialog,
         template,
@@ -61,11 +61,14 @@
         return declare([ContentPane,_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
             templateString: template,
-            title:"Bitacora",
+            title: "Bitacora",
+            bitacoraGrid: new BitacoraGrid({
+
+            }),
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
-
+                this._initGridBitacora();
             },
             
             constructor: function (arguments) {
@@ -74,6 +77,9 @@
                 La línea anterior permite manipular los objetos que se
                 pasan como argumentos en el constructo.
                 */
+            },
+            _initGridBitacora: function () {
+                this.gridBitacora.addChild(this.bitacoraGrid);
             }
 
             

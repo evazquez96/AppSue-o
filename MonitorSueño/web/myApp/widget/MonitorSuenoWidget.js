@@ -1,5 +1,6 @@
 ﻿define(["dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/on",
     "dojo/json",
     "dojo/request/iframe",
     "dijit/_WidgetBase",
@@ -30,6 +31,7 @@
     function (
         declare,
         lang,
+        on,
         JSON,
         iframe,
         _WidgetBase,
@@ -60,26 +62,28 @@
 
             templateString: template,
 
+            monitorGrid: new MonitorGrid({
+
+            }),
+            filtro: null,
+            bitacora: null,
+
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
+                this.bitacora = new Bitacora({});
+                this.filtro = new Filtro({
+                    master:this
+                })
                 this._createCenterPane();
                 this._createTopPane();
-                this.monitorGrid._initMonitor();
+                this.monitorGrid._initMonitor("");
                 this._createBitacoraPane();
+                
                 //this._getMonitor();
 
             },
 
-            monitorGrid: new MonitorGrid({
-
-            }),
-            filtro: new Filtro({
-
-            }),
-            bitacora: new Bitacora({
-
-            }),
             constructor: function (arguments) {
                 lang.mixin(this, arguments);
                 /**
@@ -101,10 +105,7 @@
                 this.tabContainerWidget.addChild(this.bitacora);
 
             }
-            
-            
-            
-            
+
         });
         parser.parse();
     });

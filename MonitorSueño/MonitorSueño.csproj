@@ -85,11 +85,14 @@
     <Content Include="Web.config" />
     <Content Include="web\JSONHelper.js" />
     <Content Include="web\MonitorSueño.html" />
+    <Content Include="web\myApp\Grid\BitacoraGrid.js" />
     <Content Include="web\myApp\Grid\GridMonitorHelper.js" />
     <Content Include="web\myApp\Grid\MonitorGrid.js" />
+    <Content Include="web\myApp\widget\BitacoraMonitorWidget.js" />
     <Content Include="web\myApp\widget\css\myCSS.css" />
     <Content Include="web\myApp\widget\FiltroMonitorWidget.js" />
     <Content Include="web\myApp\widget\MonitorSuenoWidget.js" />
+    <Content Include="web\myApp\widget\templates\BitacoraMonitorWidget.html" />
     <Content Include="web\myApp\widget\templates\FiltroMonitorWidget.html" />
     <Content Include="web\myApp\widget\templates\MonitorSuenoWidget.html" />
     <Content Include="web\Resource.css" />

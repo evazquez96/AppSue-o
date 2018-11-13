@@ -70,6 +70,15 @@
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
+                on(this.operadorWidget, "keyup", lang.hitch(this, function () {
+                    this.master.monitorGrid._initMonitor(this.operadorWidget.displayedValue)
+                   //console.log()
+                }));
+                this._initEvents();
+            },
+            _initEvents: function () {
+                /**Agregara los eventos a los widgets de los filstros***/
+                
             }
 
         });

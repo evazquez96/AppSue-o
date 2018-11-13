@@ -11,8 +11,7 @@ using System.Web.Script.Serialization;
 [WebService(Namespace = "http://app.mexamerik.com")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
-// [System.Web.Script.Services.ScriptService]
-
+[System.Web.Script.Services.ScriptService]
 public class Service : System.Web.Services.WebService
 {
     public Service () {

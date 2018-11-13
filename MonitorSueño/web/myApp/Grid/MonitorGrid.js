@@ -1,6 +1,7 @@
 ﻿define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/on",
     "dojo/_base/array",
     "dojo/when",
     "dojo/request/xhr",
@@ -23,6 +24,7 @@
 ], function (
     declare,
     lang,
+    on,
     array,
     when,
     request,
@@ -50,7 +52,7 @@
                 { field: 'nombre', label: 'Nombre' },
                 MonitorHelper.formatoActividadColumn({ field: 'actividad', label: 'Actividad' }),
                 { field: 'tiempoActual', label: 'TiempoActual' },
-                { field: 'S24', label: '24s' },
+                MonitorHelper.formato24SPlan({ field: 'S24', label: '24s' }),
                 { field: 'plan', label: 'Plan' },
                 { field: 'A24', label: '24a' },
                 { field: 'I24', label: '24I' },
@@ -61,7 +63,8 @@
             ],
 
            
-            _initMonitor: function () {
+            _initMonitor: function (nombre) {
+
                 var deferred = request.post("http://tms.logsys.com.mx/bitacoradream/Service.asmx/GetMonitor", {
                     data: {
                         "a1": "0",
@@ -74,16 +77,17 @@
                         "d2": "1000",
                         "e1": "0",
                         "e2": "1000",
-                        "nombre": ""
+                        "nombre": nombre
                     },
                     handleAs: 'text',
                     headers: {
                         "Accept": 'application/json'
                     }
                 });
-
+                //debugger;
                 when(deferred,
-                    lang.hitch(this,function (response) {
+                    lang.hitch(this, function (response) {
+
                         aux = response.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "")
                         aux = aux.replace('<string xmlns="http://app.mexamerik.com">', "");
                         aux = aux.replace('</string>', "");
@@ -113,8 +117,11 @@
                         this.refresh();
 
                     }), function (error) {
-                        console.log(error);
+                        alert(error);
                     })
+
+            },
+            _initEvents() {
 
             }
       
