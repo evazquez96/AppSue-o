@@ -1,6 +1,6 @@
 ﻿define(["dojo/_base/declare",
     "dojo/_base/lang",
-    "dojo/json",
+    "dojo/_base/json",
     "dojo/request/iframe",
     "dijit/_WidgetBase",
     "dijit/_TemplatedMixin",
@@ -31,7 +31,7 @@
     function (
         declare,
         lang,
-        JSON,
+        json,
         iframe,
         _WidgetBase,
         _TemplatedMixin,
@@ -50,7 +50,7 @@
         on,
         parser,
         domStyle,
-        request,
+        xhr,
         when,
         Deferred,
         Memory,
@@ -78,12 +78,106 @@
                 pasan como argumentos en el constructo.
                 */
             },
+            onShow: function () {
+                var actual = new Date();
+                /**
+                 * Obtiene la fecha actual y la fija en el 
+                 * widget de la fecha inicio de la búsqueda.
+                 * **/
+                /**
+                 * Fija la fecha actual.
+                 * **/
+                var b = this.formato(actual);
+                this.fechaInicioWidget.set("value", b)
+
+                actual.setDate(actual.getDate() - 7);
+                /***
+                 * Resta 7 días a la fecha actual.
+                 * **/
+                b = this.formato(actual);
+                this.fechaFinWidget.set("value", b)
+                /**
+                 * Fija la fecha fin de la busqueda.
+                 * **/
+                debugger
+                console.log(actual);
+                //alert("arriba")
+            },
             _initGridBitacora: function () {
                 this.gridBitacora.addChild(this.bitacoraGrid);
-            }
+            },
+            _setOperadorBusqueda: function (object) {
+                /**Cambia el valor del TexBox del operador**/
+                this.operadorWidget.set("value", object.nombre);
+                /**
+                 * Una vez que se de doble click al operador que
+                 * se quiere consultar, se mandara a consumir el 
+                 * servicio con los eventos del operador.
+                 * **/
+                this._consultarSueno(object);
+            },
+            iniciarFecha: function () {
+                var actual = new Date();
+                /**
+                 * Obtiene la fecha actual y la fija en el 
+                 * widget de la fecha inicio de la búsqueda.
+                 * **/
+                /**
+                 * Fija la fecha actual.
+                 * **/
+                var b = this.formato(actual);
+                this.fechaInicioWidget.set("value", b)
 
-            
-            
+                actual.setDate(actual.getDate() - 7);
+                /***
+                 * Resta 7 días a la fecha actual.
+                 * **/
+                b = this.formato(actual);
+                this.fechaFinWidget.set("value", b)
+                /**
+                 * Fija la fecha fin de la busqueda.
+                 * **/
+            }
+            ,
+            formato:function(date) {
+                var d = new Date(date)
+                month = '' + (d.getMonth() + 1)
+                day = '' + d.getDate()
+                year = d.getFullYear();
+
+                if(month.length < 2) month = '0' + month;
+                if(day.length < 2) day = '0' + day;
+
+                return [year, month, day].join('-');
+            },
+            _consultarSueno: function (object) {
+
+                var context = this;
+                this.iniciarFecha();
+                var z = this.fechaFinWidget.value;
+                var v = this.fechaInicioWidget.value;
+                var inicio =new Date(this.fechaInicioWidget.value).getTime() / 1000;
+                var fin = "/Date(" + (new Date(this.fechaFinWidget.value).getTime() / 1000) + ")/";
+                debugger
+                var deferred = xhr.post("http://app.mexamerik.com/Dream/Sueno/Sueno.svc/consultarsuenos", {
+                    data: json.toJson({
+                        "usuario_id": object.usuarioId,
+                        "fechaFinal": JSON.stringify("/Date(" + inicio + "000-0500)/"),//this.fechaInicioWidget.get("value"),
+                        "fechaInicial": "/Date(" + inicio + "000-0500)/"//this.fechaFinWidget.value
+                    })
+                });
+
+                when(deferred,
+                    lang.hitch(this, function (response) {
+                        /**La promesa se cumplio**/
+                        
+                    }),
+                    lang.hitch(this, function (error) {
+                        /**La promesa fue rechazada.***/
+                    }));
+
+            }
+    
         });
         parser.parse();
     });

@@ -7,14 +7,17 @@
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dijit/layout/ContentPane",
+    "dijit/MenuBar",
+    "dijit/MenuBarItem",
     "dijit/layout/BorderContainer",
     "dojox/layout/TableContainer",
     "dijit/form/Select",
     "dijit/form/ValidationTextBox",
     "dijit/form/Button",
+    "dijit/form/SimpleTextarea",
     "/web/myApp/Grid/MonitorGrid.js",
     "dijit/Dialog",//Dialog que mostrar los registros que tienen errores.
-    "dojo/text!/web/myApp/widget/templates/FiltroMonitorWidget.html",
+    "dojo/text!/web/myApp/widget/templates/NuevoSuenoPaneWidget.html",
     "dojo/on",
     "dojo/parser",
     "dojo/dom-style",
@@ -36,11 +39,14 @@
         _TemplatedMixin,
         _WidgetsInTemplateMixin,
         ContentPane,
+        ManuBar,
+        MenuBarItem,
         BorderContainer,
         TableContainer,
         Select,
         ValidationTextBox,
         Button,
+        SimpleTextArea,
         MonitorGrid,
         Dialog,
         template,
@@ -55,10 +61,10 @@
         ColumnSet,
         DijitRegistry
     ) {
-        return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+        return declare([ContentPane,_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
             templateString: template,
-            
+
             constructor: function (arguments) {
                 lang.mixin(this, arguments);
                 /**
@@ -70,12 +76,12 @@
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
-                
+
                 this._initEvents();
             },
             _initEvents: function () {
                 /**Agregara los eventos a los widgets de los filstros***/
-                
+
             }
 
         });

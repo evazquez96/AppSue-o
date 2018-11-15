@@ -61,10 +61,6 @@
         return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
             templateString: template,
-
-            monitorGrid: new MonitorGrid({
-
-            }),
             filtro: null,
             bitacora: null,
 
@@ -73,6 +69,9 @@
                 this.inherited(arguments);
                 this.bitacora = new Bitacora({});
                 this.filtro = new Filtro({
+                    master:this
+                })
+                this.monitorGrid=new MonitorGrid({
                     master:this
                 })
                 this._createCenterPane();

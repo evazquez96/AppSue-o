@@ -7,26 +7,55 @@
              style="width:20%!important"
              data-dojo-props="region:'top'">
             <div data-dojo-type="dojox/layout/TableContainer"
-                 style="width:20%!important"
-                 data-dojo-props="cols:2,showLabels:false">
+                 style="width:26%!important"
+                 data-dojo-props="cols:3,showLabels:false">
+                <div data-dojo-type="dijit/form/Button"
+                     data-dojo-props="label:'Operador'"
+                     disabled>
+                </div>
+                <div data-dojo-type="dijit/form/ValidationTextBox"
+                     data-dojo-attach-point="operadorWidget"
+                     style="width:290px!important"
+                     data-dojo-props="colspan:2"
+                     >
+                </div>
+                <div data-dojo-type="dijit/form/Button"
+                     data-dojo-props="label:'Fecha Inicio:'"
+                     disabled>
+                </div>
                 <div data-dojo-type="dijit/form/DateTextBox"
+                     
                      data-dojo-attach-point="fechaInicioWidget">
                 </div>
                 <div data-dojo-type="dijit/form/TimeTextBox"
+                     value="T00:00:00"
+                     data-dojo-props="constraints:{
+                        timePattern:'HH:mm:ss'
+                     }"
                      data-dojo-attach-point="fechaInicioTimeWidget">
                 </div>
+                <div data-dojo-type="dijit/form/Button"
+                     data-dojo-props="label:'Fecha Fin:'"
+                     disabled>
+                </div>
                 <div data-dojo-type="dijit/form/DateTextBox"
-                     data-dojo-attach-point="fechafinWidget">
+                     data-dojo-attach-point="fechaFinWidget">
                 </div>
                 <div data-dojo-type="dijit/form/TimeTextBox"
-                     data-dojo-attach-point="fechaFinTimeWidget">
+                     data-dojo-attach-point="fechaFinTimeWidget"
+                     value="T00:00:00"
+                     data-dojo-props="constraints:{
+                        timePattern:'HH:mm:ss'
+                     }">
                 </div>
                 <div data-dojo-type="dijit/form/Button"
                      data-dojo-attach-point="buscarWidget"
+                     style="display:grid"
                      data-dojo-props="label:'Buscar'">
                 </div>
                 <div data-dojo-type="dijit/form/Button"
                      data-dojo-attach-point="nuevoWidget"
+                     style="display:grid"
                      data-dojo-props="label:'Nuevo'">
                 </div>
             </div>

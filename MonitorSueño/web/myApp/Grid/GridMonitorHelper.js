@@ -19,22 +19,27 @@
             },
 
             formato24SPlan: function (column) {
+
                 column.renderCell = function (object, value, cell, options, headers) {
                     var div = document.createElement("div");
                     domStyle.set(div, "text-align", "center");
-                    div.innerHTML=value
-                    var z = value.substring(0,2);
-                    var aux = parseInt(z)
-                    if (aux > 6) {
-                        domStyle.set(div, "background-color", "green");
-                        domStyle.set(cell, "background-color", "green");
-                    } else if (aux > 5 && aux < 6) {
-                        domStyle.set(div, "background-color", "yellow");
-                        domStyle.set(cell, "background-color", "yellow");
-                    } else {
-                        domStyle.set(div, "background-color", "red");
-                        domStyle.set(cell, "background-color", "red");
+                    div.innerHTML = value
+
+                    if (object.Actividad != "DESCANSO") {
+                        var z = value.substring(0, 2);
+                        var aux = parseInt(z)
+                        if (aux > 6) {
+                            domStyle.set(div, "background-color", "green");
+                            domStyle.set(cell, "background-color", "green");
+                        } else if (aux > 5 && aux < 6) {
+                            domStyle.set(div, "background-color", "yellow");
+                            domStyle.set(cell, "background-color", "yellow");
+                        } else {
+                            domStyle.set(div, "background-color", "red");
+                            domStyle.set(cell, "background-color", "red");
+                        }
                     }
+
                     return div;
                 }
 
@@ -45,19 +50,24 @@
                 column.renderCell = function (object, value, cell, options, headers) {
                     var div = document.createElement("div");
                     domStyle.set(div, "text-align", "center");
-                    div.innerHTML = object.S24
-                    var z = object.S24.substring(0, 2);
-                    var aux = parseInt(z)
-                    if (aux > 6) {
-                        domStyle.set(div, "background-color", "green");
-                        domStyle.set(cell, "background-color", "green");
-                    } else if (aux > 5 && aux < 6) {
-                        domStyle.set(div, "background-color", "yellow");
-                        domStyle.set(cell, "background-color", "yellow");
-                    } else {
-                        domStyle.set(div, "background-color", "red");
-                        domStyle.set(cell, "background-color", "red");
+                    div.innerHTML = object.tiempo_24s;
+
+                    if (object.Actividad != "DESCANSO") {
+                        var z = object.tiempo_24s.substring(0, 2);
+                        var aux = parseInt(z)
+                        if (aux > 6) {
+                            domStyle.set(div, "background-color", "green");
+                            domStyle.set(cell, "background-color", "green");
+                        } else if (aux > 5 && aux < 6) {
+                            domStyle.set(div, "background-color", "yellow");
+                            domStyle.set(cell, "background-color", "yellow");
+                        } else {
+                            domStyle.set(div, "background-color", "red");
+                            domStyle.set(cell, "background-color", "red");
+                        }
                     }
+
+
                     return div;
                 }
 
@@ -69,7 +79,8 @@
                 column.renderCell = function (object, value, cell, options, headers) {
                     var div = document.createElement("div");
                     domStyle.set(div, "text-align", "center");
-                   
+                    div.innerHTML = value;
+                   /*
                     switch (value) {
                         case -1:
                             div.innerHTML = "ASIGNADO";
@@ -87,7 +98,7 @@
                             div.innerHTML = "SUEÑO";
                             break;
 
-                    }
+                    }*/
                     return div;
                 }
 

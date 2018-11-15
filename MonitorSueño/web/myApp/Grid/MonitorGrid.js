@@ -20,7 +20,9 @@
     "dijit/form/ValidationTextBox",
     "dijit/form/CheckBox",
     "dijit/form/DateTextBox",
+    "dijit/Dialog",
     "/web/myApp/Grid/GridMonitorHelper.js",
+    "/web/myApp/widget/NuevoSuenoPaneWidget.js",
     "dojo/domReady!"
 ], function (
     declare,
@@ -44,21 +46,27 @@
     ValidationTextBox,
     CheckBox,
     DateTextBox,
-    MonitorHelper
+    Dialog,
+    MonitorHelper,
+    NuevoSueno
 ) {
         return declare([OnDemandGrid, Dgrid,DijitRegistry, Selection, Editor, Keyboard], {
 
             //collection: null,//Al inicio la collection sera null.
             //farOffRemoval: 500,
+            nuevoSueno: new NuevoSueno({
+
+            }),
+            myDialog: null,
             columns: [
                 { field: 'nombre', label: 'Nombre' },
-                MonitorHelper.formatoActividadColumn({ field: 'actividad', label: 'Actividad' }),
-                { field: 'tiempoActual', label: 'TiempoActual' },
-                MonitorHelper.formato24SPlan({ field: 'S24', label: '24s' }),
+                MonitorHelper.formatoActividadColumn({ field: 'Actividad', label: 'Actividad' }),
+                { field: 'TiempoActual', label: 'TiempoActual' },
+                MonitorHelper.formato24SPlan({ field: 'tiempo_24s', label: '24s' }),
                 MonitorHelper.formatoPlan({ field: 'plan', label: 'Plan' }),
-                { field: 'A24', label: '24a' },
-                { field: 'I24', label: '24I' },
-                { field: 'D24', label: '24D' },
+                { field: 'tiempo_24a', label: '24a' },
+                { field: 'tiempo_24i', label: '24I' },
+                { field: 'tiempo_24d', label: '24D' },
                 MonitorHelper.formatoRojoColumn({ field: 'rojo', label: '%ROJO' }),
                 MonitorHelper.formatoAmarilloColumn({ field: 'amarillo', label: '%AMARILLO' }),
                 MonitorHelper.formatoVerdeColumn({ field: 'verde', label: '%VERDE' }),
@@ -66,7 +74,12 @@
 
            
             _initMonitor: function (nombre) {
-                
+                this._initEvents()
+                this.myDialog = new Dialog({
+                    title: "Nuevo Sueño",
+                    content: this.nuevoSueno
+                });
+                console.log("Iniciando Monitor")
                 var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
                     data:json.toJson({
                         "Nombre": null,
@@ -84,30 +97,10 @@
                 //debugger;
                 when(deferred,
                     lang.hitch(this, function (response) {
-                        debugger
-                        aux = response.replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "")
-                        aux = aux.replace('<string xmlns="http://app.mexamerik.com">', "");
-                        aux = aux.replace('</string>', "");
-                        /**
-                         * Lo anterior limpia la cadena ya que por alguna razón no toma la respuesta como
-                         * archivo JSON
-                         * **/
-                        var json = J.parse(aux);
-                        /**Una vez limpia la cadena, la convertimos a JSON**/
-                        //console.log(json)
-                        var aux = []
-
-                        array.forEach(json, function (item) {
-                           
-                            aux.push(darFormato(item));
-                            //console.log(item)
-                        });
-                        jstring = J.stringify(aux);
-
+                        
                         var monitorStore = new Memory({
-                            data: J.parse(jstring),
-                            //id: ['NumEmpleado', 'Fecha'].join("#")
-                            idProperty: 'Id'
+                            data:response,
+                            idProperty: 'usuarioId'
                         });
                         this.set('collection', monitorStore);
                         this.renderArray(json);
@@ -118,9 +111,63 @@
                     })
 
             },
+            _consultarMonitor: function (nombre) {
+
+                var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
+                    data: json.toJson({
+                        "Nombre": nombre,
+                        "grupo_id": null,
+                        "semaforo_id": null,
+                        "tipo_actividad_id": null,
+                        "tipo_operador_id": null,
+                        "usuario_id": null
+                    }),
+                    handleAs: 'json',
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                });
+                //debugger;
+                when(deferred,
+                    lang.hitch(this, function (response) {
+
+
+
+                        var monitorStore = new Memory({
+                            data: response,
+                            //id: ['NumEmpleado', 'Fecha'].join("#")
+                            idProperty: 'usuarioId'
+                        });
+                        this.set('collection', monitorStore);
+                        this.renderRow(json);
+                        this.refresh();
+
+                    }), function (error) {
+                        alert(error);
+                    })
+
+            }
+            ,
             _initEvents() {
+                this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this,function (event) {
+                    /**Este evento se ejecutara cuando se le doblo click sobre una fila del gri
+                     * el cual sera el encargado de mostrar el panel de bitacora con el registro
+                     * seleccionado.
+                     * ***/
+                    var row = this.row(event);
+                    /*var aux = new Dialog({
+                        title: "My dialog",
+                        content: new NuevoSueno()
+                    });*/
+                    this.myDialog.show();
+                   //this.master.bitacora._setOperadorBusqueda(row.data);
+                    /**
+                     * Se pasa el objeto seleccionado al filtro de bitacora.
+                     * **/
+                    //this.master.tabContainerWidget.selectChild(this.master.bitacora);
+                }));
 
             }
       
         });
-    });
+    });  
