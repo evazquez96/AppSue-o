@@ -69,6 +69,7 @@
                 var domNode = this.domNode;
                 this.inherited(arguments);
                 this._initGridBitacora();
+                this.bitacoraGrid._initEvents();
             },
             
             constructor: function (arguments) {
@@ -99,7 +100,7 @@
                 /**
                  * Fija la fecha fin de la busqueda.
                  * **/
-                debugger
+                
                 console.log(actual);
                 //alert("arriba")
             },
@@ -126,14 +127,14 @@
                  * Fija la fecha actual.
                  * **/
                 var b = this.formato(actual);
-                this.fechaInicioWidget.set("value", b)
+                this.fechaFinWidget.set("value", b)
 
                 actual.setDate(actual.getDate() - 7);
                 /***
                  * Resta 7 días a la fecha actual.
                  * **/
                 b = this.formato(actual);
-                this.fechaFinWidget.set("value", b)
+                this.fechaInicioWidget.set("value", b)
                 /**
                  * Fija la fecha fin de la busqueda.
                  * **/
@@ -157,23 +158,34 @@
                 var z = this.fechaFinWidget.value;
                 var v = this.fechaInicioWidget.value;
                 var inicio =new Date(this.fechaInicioWidget.value).getTime() / 1000;
-                var fin = "/Date(" + (new Date(this.fechaFinWidget.value).getTime() / 1000) + ")/";
-                debugger
-                var deferred = xhr.post("http://app.mexamerik.com/Dream/Sueno/Sueno.svc/consultarsuenos", {
-                    data: json.toJson({
+                var fin = new Date(this.fechaFinWidget.value).getTime() / 1000;
+                var url = "http://localhost:63915/api/GetSuenos/" + object.usuarioId + "/" + inicio + "/" + fin;
+               
+                var deferred = xhr.get(url, {
+                    /*data: json.toJson({
                         "usuario_id": object.usuarioId,
                         "fechaFinal": JSON.stringify("/Date(" + inicio + "000-0500)/"),//this.fechaInicioWidget.get("value"),
                         "fechaInicial": "/Date(" + inicio + "000-0500)/"//this.fechaFinWidget.value
-                    })
+                    })*/
+                    handleAs:'json'
                 });
 
                 when(deferred,
                     lang.hitch(this, function (response) {
                         /**La promesa se cumplio**/
-                        
+                        var suenosStore = new Memory({
+                            data: response,
+                            //id: ['NumEmpleado', 'Fecha'].join("#")
+                            idProperty: 'id'
+                        });
+                        this.bitacoraGrid.set('collection', suenosStore);
+                        this.bitacoraGrid.renderRow(response);
+                        this.bitacoraGrid.refresh();
+                        //alert(response)
                     }),
                     lang.hitch(this, function (error) {
                         /**La promesa fue rechazada.***/
+                        alert(error)
                     }));
 
             }

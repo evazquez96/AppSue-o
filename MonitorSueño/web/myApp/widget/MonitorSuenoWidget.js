@@ -67,7 +67,9 @@
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
-                this.bitacora = new Bitacora({});
+                this.bitacora = new Bitacora({
+
+                });
                 this.filtro = new Filtro({
                     master:this
                 })

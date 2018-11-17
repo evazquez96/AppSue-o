@@ -86,6 +86,7 @@
     <Content Include="web\JSONHelper.js" />
     <Content Include="web\MonitorSueño.html" />
     <Content Include="web\myApp\Grid\BitacoraGrid.js" />
+    <Content Include="web\myApp\Grid\GridBitacoraHelper.js" />
     <Content Include="web\myApp\Grid\GridMonitorHelper.js" />
     <Content Include="web\myApp\Grid\MonitorGrid.js" />
     <Content Include="web\myApp\widget\BitacoraMonitorWidget.js" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GeMonitorController.cs" />
+    <Compile Include="Controllers\GetSuenosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -121,6 +123,9 @@
     <Folder Include="Models\" />
     <Folder Include="web\myApp\widget\Helper\" />
     <Folder Include="web\myApp\widget\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

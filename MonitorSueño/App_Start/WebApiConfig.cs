@@ -16,8 +16,12 @@ namespace MonitorSueño
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{user_id}/{inicio}/{fin}",
+                defaults: new {
+                    id = RouteParameter.Optional,
+                    inicio = RouteParameter.Optional,
+                    fin=RouteParameter.Optional
+                }
             );
         }
     }

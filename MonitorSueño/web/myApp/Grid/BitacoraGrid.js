@@ -18,7 +18,9 @@
     "dijit/form/ValidationTextBox",
     "dijit/form/CheckBox",
     "dijit/form/DateTextBox",
-    "/web/myApp/Grid/GridMonitorHelper.js",
+    "dijit/Dialog",
+    "/web/myApp/Grid/GridBitacoraHelper.js",
+    "/web/myApp/widget/NuevoSuenoPaneWidget.js",
     "dojo/domReady!"
 ], function (
     declare,
@@ -40,17 +42,23 @@
     ValidationTextBox,
     CheckBox,
     DateTextBox,
-    MonitorHelper
+    Dialog,
+    BitacoraHelper,
+    NuevoSueno
 ) {
         return declare([OnDemandGrid, Dgrid, DijitRegistry, Selection, Editor, Keyboard], {
 
             //collection: null,//Al inicio la collection sera null.
             //farOffRemoval: 500,
+            nuevoSueno: new NuevoSueno({
+
+            }),
+            myDialog: null,
             columns: [
                 { field: 'Automatica', label: 'Automatica' },
-                { field: 'Semaforo', label: 'Semaforo' },
+                BitacoraHelper.formatoSemaforoColumn({ field: 'color_id', label: 'Semaforo' }),
                 { field: 'duracion', label: 'Duración' },
-                { field: 'Actividad', label: 'Actividad' },
+                { field: 'tipoActividad', label: 'Actividad' },
                 { field: 'usuario', label: 'Usuario' },
                 { field: 'comentarios', label: 'Comentarios' },
                 { field: 'fecha_inicio', label: 'Fecha Inicio' },
@@ -59,7 +67,16 @@
             ],
 
 
-            _initMonitor: function () {
+            _initEvents: function () {
+                this.myDialog = new Dialog({
+                    title: "Nuevo Sueño",
+                    content: this.nuevoSueno
+                });
+                this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this, function (event) {
+                    var row = this.row(event);
+                    this.myDialog.show();
+                   // alert("click");
+                }));
 
             }
 

@@ -20,9 +20,7 @@
     "dijit/form/ValidationTextBox",
     "dijit/form/CheckBox",
     "dijit/form/DateTextBox",
-    "dijit/Dialog",
     "/web/myApp/Grid/GridMonitorHelper.js",
-    "/web/myApp/widget/NuevoSuenoPaneWidget.js",
     "dojo/domReady!"
 ], function (
     declare,
@@ -46,18 +44,13 @@
     ValidationTextBox,
     CheckBox,
     DateTextBox,
-    Dialog,
     MonitorHelper,
-    NuevoSueno
 ) {
         return declare([OnDemandGrid, Dgrid,DijitRegistry, Selection, Editor, Keyboard], {
 
             //collection: null,//Al inicio la collection sera null.
             //farOffRemoval: 500,
-            nuevoSueno: new NuevoSueno({
-
-            }),
-            myDialog: null,
+            collectionOriginal: null,
             columns: [
                 { field: 'nombre', label: 'Nombre' },
                 MonitorHelper.formatoActividadColumn({ field: 'Actividad', label: 'Actividad' }),
@@ -75,10 +68,7 @@
            
             _initMonitor: function (nombre) {
                 this._initEvents()
-                this.myDialog = new Dialog({
-                    title: "Nuevo Sueño",
-                    content: this.nuevoSueno
-                });
+                
                 console.log("Iniciando Monitor")
                 var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
                     data:json.toJson({
@@ -104,6 +94,7 @@
                         });
                         this.set('collection', monitorStore);
                         this.renderArray(json);
+                        this.collectionOriginal = monitorStore;
                         this.refresh();
 
                     }), function (error) {
@@ -131,8 +122,6 @@
                 when(deferred,
                     lang.hitch(this, function (response) {
 
-
-
                         var monitorStore = new Memory({
                             data: response,
                             //id: ['NumEmpleado', 'Fecha'].join("#")
@@ -149,6 +138,7 @@
             }
             ,
             _initEvents() {
+
                 this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this,function (event) {
                     /**Este evento se ejecutara cuando se le doblo click sobre una fila del gri
                      * el cual sera el encargado de mostrar el panel de bitacora con el registro
@@ -159,12 +149,13 @@
                         title: "My dialog",
                         content: new NuevoSueno()
                     });*/
-                    this.myDialog.show();
-                   //this.master.bitacora._setOperadorBusqueda(row.data);
+                    //this.myDialog.show();
+                   this.master.bitacora._setOperadorBusqueda(row.data);
                     /**
                      * Se pasa el objeto seleccionado al filtro de bitacora.
                      * **/
-                    //this.master.tabContainerWidget.selectChild(this.master.bitacora);
+                    this.master.tabContainerWidget.selectChild(this.master.bitacora);
+
                 }));
 
             }

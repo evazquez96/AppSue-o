@@ -75,7 +75,19 @@
             },
             _initEvents: function () {
                 /**Agregara los eventos a los widgets de los filstros***/
-                
+                on(this.operadorWidget, "keyup", lang.hitch(this, function (event) {
+                    var value = this.operadorWidget.displayedValue;
+                    var temp = new Memory({
+                        idProperty: 'usuarioId'
+                    });
+                    var s = this.master.monitorGrid;
+                    var z = this.master.monitorGrid.collectionOriginal.filter({
+                        nombre: new RegExp(value, "i")
+                    }).forEach(function (object) {
+                        temp.put(object)
+                    });
+                    this.master.monitorGrid.set("collection",temp)
+                }));
             }
 
         });
