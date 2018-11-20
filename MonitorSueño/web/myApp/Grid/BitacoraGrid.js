@@ -48,24 +48,22 @@
 ) {
         return declare([OnDemandGrid, Dgrid, DijitRegistry, Selection, Editor, Keyboard], {
 
-            //collection: null,//Al inicio la collection sera null.
-            //farOffRemoval: 500,
             nuevoSueno: new NuevoSueno({
 
             }),
             myDialog: null,
+            master:null,
             columns: [
                 { field: 'Automatica', label: 'Automatica' },
                 BitacoraHelper.formatoSemaforoColumn({ field: 'color_id', label: 'Semaforo' }),
-                { field: 'duracion', label: 'Duración' },
-                { field: 'tipoActividad', label: 'Actividad' },
-                { field: 'usuario', label: 'Usuario' },
-                { field: 'comentarios', label: 'Comentarios' },
-                { field: 'fecha_inicio', label: 'Fecha Inicio' },
-                { field: 'fecha_fin', label: 'Fecha Fin' },
-                { field: 'id', label: 'Id' },
+                BitacoraHelper.diferenciaFormatColumn({ field: 'duracion', label: 'Duración' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'tipoActividad', label: 'Actividad' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'usuario', label: 'Usuario' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'comentarios', label: 'Comentarios' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'fechaInicio', label: 'Fecha Inicio' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'fechaFin', label: 'Fecha Fin' })
+                //{ field: 'id', label: 'Id' },
             ],
-
 
             _initEvents: function () {
                 this.myDialog = new Dialog({
@@ -74,6 +72,12 @@
                 });
                 this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this, function (event) {
                     var row = this.row(event);
+                    //debugger;
+                    this.myDialog.content._setValues(row.data, this.master.infoOperador);
+                    /***
+                     * Manda el objeto con los valores para cambiarlos en el panel
+                     * de la inserción de sueño.
+                     * **/
                     this.myDialog.show();
                    // alert("click");
                 }));

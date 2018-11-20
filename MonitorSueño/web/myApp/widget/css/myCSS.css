@@ -9,6 +9,7 @@
 }
 .dgrid-cell {
     width: 100px!important;
+    text-align:center
 }
 
 .myClass-valueCell{

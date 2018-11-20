@@ -88,6 +88,61 @@
                     });
                     this.master.monitorGrid.set("collection",temp)
                 }));
+
+                on(this.semaforoSelectWidget, "change", lang.hitch(this, function () {
+                    var actividad = this.actividadSelectWidget.get("value") == "null" ? null : this.actividadSelectWidget.get("value");
+                    var semaforo = this.semaforoSelectWidget.get("value") == "null" ? null : parseInt(this.semaforoSelectWidget.get("value"));
+                    var tipoOperador = this.tipoOperadorWidget.get("value") == "null" ? null : parseInt(this.tipoOperadorWidget.get("value"));
+                    var grupo = this.grupoSelectWidget.get("value") == "null" ? null : parseInt(this.grupoSelectWidget.get("value"));
+                    this.master.monitorGrid._consultarMonitor(
+                        null,
+                        grupo,
+                        semaforo,
+                        actividad,
+                        tipoOperador,
+                        null);
+                    
+                }));
+                on(this.grupoSelectWidget, "change", lang.hitch(this, function () {
+                    var actividad = this.actividadSelectWidget.get("value") == "null" ? null : this.actividadSelectWidget.get("value");
+                    var semaforo = this.semaforoSelectWidget.get("value") == "null" ? null : parseInt(this.semaforoSelectWidget.get("value"));
+                    var tipoOperador = this.tipoOperadorWidget.get("value") == "null" ? null : parseInt(this.tipoOperadorWidget.get("value"));
+                    var grupo = this.grupoSelectWidget.get("value") == "null" ? null : parseInt(this.grupoSelectWidget.get("value"));
+                    this.master.monitorGrid._consultarMonitor(
+                        null,
+                        grupo,
+                        semaforo,
+                        actividad,
+                        tipoOperador,
+                        null);
+                   
+                }))
+                on(this.actividadSelectWidget, "change", lang.hitch(this, function () {
+                    var actividad = this.actividadSelectWidget.get("value") == "null" ? null : this.actividadSelectWidget.get("value");
+                    var semaforo = this.semaforoSelectWidget.get("value") == "null" ? null : parseInt(this.semaforoSelectWidget.get("value"));
+                    var tipoOperador = this.tipoOperadorWidget.get("value") == "null" ? null : parseInt(this.tipoOperadorWidget.get("value"));
+                    var grupo = this.grupoSelectWidget.get("value") == "null" ? null : parseInt(this.grupoSelectWidget.get("value"));
+                    this.master.monitorGrid._consultarMonitor(
+                        null,
+                        grupo,
+                        semaforo,
+                        actividad,
+                        tipoOperador,
+                        null);
+                }));
+                on(this.tipoOperadorWidget, "change", lang.hitch(this, function () {
+                    var actividad = this.actividadSelectWidget.get("value") == "null" ? null : this.actividadSelectWidget.get("value");
+                    var semaforo = this.semaforoSelectWidget.get("value") == "null" ? null : parseInt(this.semaforoSelectWidget.get("value"));
+                    var tipoOperador = this.tipoOperadorWidget.get("value") == "null" ? null : parseInt(this.tipoOperadorWidget.get("value"));
+                    var grupo = this.grupoSelectWidget.get("value") == "null" ? null : parseInt(this.grupoSelectWidget.get("value"));
+                    this.master.monitorGrid._consultarMonitor(
+                        null,
+                        grupo,
+                        semaforo,
+                        actividad,
+                        tipoOperador,
+                        null);
+                }));
             }
 
         });

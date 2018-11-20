@@ -50,7 +50,7 @@
                 column.renderCell = function (object, value, cell, options, headers) {
                     var div = document.createElement("div");
                     domStyle.set(div, "text-align", "center");
-                    div.innerHTML = object.tiempo_24s;
+                    div.innerHTML = object.plan;
 
                     if (object.Actividad != "DESCANSO") {
                         var z = object.tiempo_24s.substring(0, 2);

@@ -62,12 +62,14 @@
 
             templateString: template,
             title: "Bitacora",
-            bitacoraGrid: new BitacoraGrid({
-
-            }),
+            infoOperador:null,
+            bitacoraGrid: null,
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
+                this.bitacoraGrid = new BitacoraGrid({
+                    master:this
+                })
                 this._initGridBitacora();
                 this.bitacoraGrid._initEvents();
             },
@@ -89,14 +91,14 @@
                  * Fija la fecha actual.
                  * **/
                 var b = this.formato(actual);
-                this.fechaInicioWidget.set("value", b)
+                this.fechaFinWidget.set("value", b)
 
                 actual.setDate(actual.getDate() - 7);
                 /***
                  * Resta 7 días a la fecha actual.
                  * **/
                 b = this.formato(actual);
-                this.fechaFinWidget.set("value", b)
+                this.fechaInicioWidget.set("value", b)
                 /**
                  * Fija la fecha fin de la busqueda.
                  * **/
@@ -110,6 +112,7 @@
             _setOperadorBusqueda: function (object) {
                 /**Cambia el valor del TexBox del operador**/
                 this.operadorWidget.set("value", object.nombre);
+                this.infoOperador = object;
                 /**
                  * Una vez que se de doble click al operador que
                  * se quiere consultar, se mandara a consumir el 

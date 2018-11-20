@@ -8,78 +8,93 @@
                 Sueño
             </div>
         </div>
-            <div data-dojo-type="dojox/layout/TableContainer"
-                 data-dojo-props="cols:4,showLabels:false">
-                <div data-dojo-type="dijit/form/Button"
-                     data-dojo-props="label:'Tipo'"
-                     disabled>
-                </div>
-                <div data-dojo-type="dijit/form/Select"
-                     data-dojo-props="colspan:2"
-                     title="Tipo Operador :"
-                     style="width: 180px!important">
-                    <option value="1">SUEÑO</option>
-                    <option value="101">ASIGNADO</option>
-                    <option value="102">ACTIVO</option>
-                    <option value="103">DESCANSO</option>
-                    <option value="104">INACTIVO</option>
-                </div>
-                <div data-dojo-type="dijit/form/ValidationTextBox"
-                     disabled
-                     style="border:none;display:none">
-                </div>
-                <div data-dojo-type="dijit/form/Button"
-                     data-dojo-props="label:'Operador'"
-                     disabled>
-                </div>
-                <div data-dojo-type="dijit/form/ValidationTextBox"
-                     data-dojo-props="colspan:2">
-                </div>
-                <div data-dojo-type="dijit/form/ValidationTextBox"
-                     style="display:none">
-                </div>
-                <div data-dojo-type="dijit/form/Button"
-                     data-dojo-props="label:'Inicio'"
-                     disabled>
-                </div>
-                <div data-dojo-type="dijit/form/DateTextBox">
-                </div>
-                <div data-dojo-type="dijit/form/TimeTextBox"
-                     value="T00:00:00"
-                     data-dojo-props="constraints:{
-                        timePattern:'HH:mm:ss'
-                     }"
-                     data-dojo-attach-point="fechaInicioTimeWidget">
-                </div>
-                <div data-dojo-type="dijit/form/ValidationTextBox"
-                     disabled
-                     style="border:none;display:none">
-                </div>
-                <div data-dojo-type="dijit/form/Button"
-                     data-dojo-props="label:'Fin'"
-                     disabled>
-                </div>
-                <div data-dojo-type="dijit/form/DateTextBox">
-                </div>
-                <div data-dojo-type="dijit/form/TimeTextBox"
-                     value="T00:00:00"
-                     data-dojo-props="constraints:{
-                        timePattern:'HH:mm:ss'
-                     }"
-                     data-dojo-attach-point="fechaFinTimeWidget">
-                </div>
-                <div data-dojo-type="dijit/form/ValidationTextBox"
-                     disabled
-                     style="border:none;display:none">
-                </div>
-                <div data-dojo-type="dijit/form/Button"
-                     data-dojo-props="label:'Comentarios'"
-                     disabled>
-                </div>
-                <div data-dojo-type="dijit/form/SimpleTextarea"
-                     style="width:auto"
-                     data-dojo-props="rows:4">
-                </div>
+        <div data-dojo-type="dojox/layout/TableContainer"
+             data-dojo-props="cols:4,showLabels:false">
+            <div data-dojo-type="dijit/form/Button"
+                 data-dojo-props="label:'Tipo'"
+                 disabled>
             </div>
+            <div data-dojo-type="dijit/form/Select"
+                 data-dojo-props="colspan:2"
+                 title="Tipo Operador :"
+                 style="width: 180px!important">
+                <option value="1">SUEÑO</option>
+                <option value="101">ASIGNADO</option>
+                <option value="102">ACTIVO</option>
+                <option value="103">DESCANSO</option>
+                <option value="104">INACTIVO</option>
+            </div>
+            <div data-dojo-type="dijit/form/ValidationTextBox"
+                 disabled
+                 style="border:none;display:none">
+            </div>
+            <div data-dojo-type="dijit/form/Button"
+                 data-dojo-props="label:'Operador'"
+                 disabled>
+            </div>
+            <div data-dojo-type="dijit/form/ValidationTextBox"
+                 data-dojo-attach-point="operadorWidget"
+                 style="width:99%!important"
+                 colspan=3>
+            </div>
+
+            <div data-dojo-type="dijit/form/Button"
+                 data-dojo-props="label:'Inicio'"
+                 disabled>
+            </div>
+            <div data-dojo-type="dijit/form/DateTextBox"
+                 data-dojo-attach-point="fechaInicioWidget">
+            </div>
+            <div data-dojo-type="dijit/form/TimeTextBox"
+                 value="T00:00:00"
+                 data-dojo-props="constraints:{
+                        timePattern:'HH:mm:ss'
+                     }"
+                 data-dojo-attach-point="fechaInicioTimeWidget">
+            </div>
+            <div data-dojo-type="dijit/form/ValidationTextBox"
+                 disabled
+                 style="border:none;display:none">
+            </div>
+            <div data-dojo-type="dijit/form/Button"
+                 data-dojo-props="label:'Fin'"
+                 disabled>
+            </div>
+            <div data-dojo-type="dijit/form/DateTextBox"
+                 data-dojo-attach-point="fechaFinWidget">
+            </div>
+            <div data-dojo-type="dijit/form/TimeTextBox"
+                 value="T00:00:00"
+                 data-dojo-props="constraints:{
+                        timePattern:'HH:mm:ss'
+                     }"
+                 data-dojo-attach-point="fechaFinTimeWidget">
+            </div>
+            <div data-dojo-type="dijit/form/ValidationTextBox"
+                 disabled
+                 style="border:none;display:none">
+            </div>
+            <div data-dojo-type="dijit/form/Button"
+                 data-dojo-props="label:'Comentarios'"
+                 data-dojo-attach-point="comentariosWidget"
+                 disabled>
+            </div>
+            <div data-dojo-type="dijit/form/SimpleTextarea"
+                 style="width:auto"
+                 data-dojo-props="rows:4">
+            </div>
+            <div data-dojo-type="dijit/form/ValidationTextBox"
+                 disabled
+                 colspan="2"
+                 style="border:none;display:none">
+            </div>
+            <div data-dojo-type="dijit/form/Button"
+                 style="width:auto"
+                 colspan="2"
+                 data-dojo-props="label:'Insertar'"
+                 data-dojo-attach-point="btnInsertar">
+            </div>
+
+        </div>
         </div>
     </div>

@@ -11,41 +11,67 @@
 
     return {
 
-        formatoSemaforoColumn: function (column) {
+            formatoSemaforoColumn: function (column) {
+                column.renderCell = function (object, value, cell, options, headers) {
+                    var div = document.createElement("div");
+                    switch (value) {
 
-            column.renderCell = function (object, value, cell, options, headers) {
+                        case "1":
+                            /**
+                             * Verde
+                             * **/
+                            domStyle.set(cell, "background-color","green");
+                            break;
+                        case "2":
+                            /**
+                             * Amarillo
+                             * **/
+                            domStyle.set(cell, "background-color", "yellow");
+                            break;
+                        default:
+                            domStyle.set(cell, "background-color", "red");
+                            /**
+                             * Rojo
+                             * **/
+                            break;
 
-                var div = document.createElement("div");
+                    }
+                    return div;
+                }
+                return column;
 
-                switch (value) {
+            },
+            defaultFormatColumn: function (column) {
 
-                    case "1":
-                        /**
-                         * Verde
-                         * **/
-                        domStyle.set(cell, "background-color","green");
-                        break;
-                    case "2":
-                        /**
-                         * Amarillo
-                         * **/
-                        domStyle.set(cell, "background-color", "yellow");
-                        break;
-                    default:
-                        domStyle.set(cell, "background-color", "red");
-                        /**
-                         * Rojo
-                         * **/
-                        break;
+                column.renderCell = function (object, value, cell, options, headers) {
 
+                    var div = document.createElement("div");
+                    div.innerHTML = value;
+                    domStyle.set(div,"text-align","center")
+                    return div;
                 }
 
-                return div;
+                return column;
+            },
+            diferenciaFormatColumn: function (column) {
+
+                column.renderCell = function (object, value, cell, options, headers) {
+
+                    var div = document.createElement("div");
+                    var inicio
+                    for (c in object.fechaInicio) {
+                        //console.log(c)
+                    }
+                    var inicio = new Date(object.fechaInicio);
+                    var fin = object.fechaFin;
+                    div.innerHTML = value;
+                    domStyle.set(div, "text-align", "center")
+                    return div;
+                }
+
+                return column;
             }
 
-            return column;
-
-        }
 
         }
 

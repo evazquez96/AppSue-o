@@ -87,9 +87,9 @@
                 //debugger;
                 when(deferred,
                     lang.hitch(this, function (response) {
-                        
+
                         var monitorStore = new Memory({
-                            data:response,
+                            data: response,
                             idProperty: 'usuarioId'
                         });
                         this.set('collection', monitorStore);
@@ -99,19 +99,19 @@
 
                     }), function (error) {
                         alert(error);
-                    })
+                    });
 
             },
-            _consultarMonitor: function (nombre) {
+            _consultarMonitor: function (nombre,grupo,semaforo,tipoActividad,tipoOperador,usuarioId) {
 
                 var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
                     data: json.toJson({
                         "Nombre": nombre,
-                        "grupo_id": null,
-                        "semaforo_id": null,
-                        "tipo_actividad_id": null,
-                        "tipo_operador_id": null,
-                        "usuario_id": null
+                        "grupo_id": grupo,
+                        "semaforo_id": semaforo,
+                        "tipo_actividad_id": tipoActividad,
+                        "tipo_operador_id": tipoOperador,
+                        "usuario_id": usuarioId
                     }),
                     handleAs: 'json',
                     headers: {
@@ -124,19 +124,18 @@
 
                         var monitorStore = new Memory({
                             data: response,
-                            //id: ['NumEmpleado', 'Fecha'].join("#")
                             idProperty: 'usuarioId'
                         });
                         this.set('collection', monitorStore);
-                        this.renderRow(json);
+                        this.renderArray(json);
+                        this.collectionOriginal = monitorStore;
                         this.refresh();
 
                     }), function (error) {
                         alert(error);
-                    })
+                    });
 
-            }
-            ,
+            },
             _initEvents() {
 
                 this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this,function (event) {
@@ -150,7 +149,8 @@
                         content: new NuevoSueno()
                     });*/
                     //this.myDialog.show();
-                   this.master.bitacora._setOperadorBusqueda(row.data);
+                    this.master.bitacora._setOperadorBusqueda(row.data);
+                    debugger
                     /**
                      * Se pasa el objeto seleccionado al filtro de bitacora.
                      * **/

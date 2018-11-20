@@ -64,7 +64,8 @@
         return declare([ContentPane,_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
             templateString: template,
-
+            informacion: null,
+            infoOperador:null,
             constructor: function (arguments) {
                 lang.mixin(this, arguments);
                 /**
@@ -81,7 +82,34 @@
             },
             _initEvents: function () {
                 /**Agregara los eventos a los widgets de los filstros***/
-
+                on(this.btnInsertar, "click", lang.hitch(this, function (event) {
+                    var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
+                    var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
+                    var comentarios = this.comentariosWidget.get("value");
+                    var usuarioId = parseInt(this.infoOperador.usuarioId);
+                    var id = parseInt(this.infoOperador.id);
+                    var sqlId = 0;
+                    var tipoActividad = 1;
+                    debugger;
+                    alert("Inicio : " + fechaInicio);
+                    alert("Fin : "+ fechaFin);
+                }));
+            },
+            _setValues(object,infoOperador) {
+                console.log(object)
+                this.operadorWidget.set("displayedValue", object.usuario);
+                this.comentariosWidget.set("value", object.comentarios);
+                this.informacion = object;
+                this.infoOperador = infoOperador;
+                var fechaInicio = object.fechaInicio.substr(0, 8);
+                var fechaFin = object.fechaFin.substr(0, 8);
+                var timeInicio = "T".concat(object.fechaInicio.substr(11, 8));
+                var timeFin = "T".concat(object.fechaFin.substr(11, 8));
+                this.fechaInicioWidget.set("displayedValue", fechaInicio);
+                this.fechaFinWidget.set("displayedValue", fechaFin);
+                this.fechaInicioTimeWidget.set("value", timeInicio);
+                this.fechaFinTimeWidget.set("value", timeFin);
+                
             }
 
         });

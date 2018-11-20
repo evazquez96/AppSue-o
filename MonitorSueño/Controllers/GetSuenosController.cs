@@ -44,9 +44,14 @@ namespace MonitorSueño.Controllers
 
             return lista;
         }
+        [Route("GetSuenos/insert")]
         [HttpGet]
-        public String GetAllSuenos()
+        public String GetAllSuenos(String comentarios,String fFin,String fInicio,int id,int sqlId,int tipoActividad,int usuarioId)
         {
+            /***
+             * Este método sera el encargada de realizar las inserciones
+             * de los sueños.
+             * **/
 
             return "salida sueños";
         }
@@ -62,7 +67,7 @@ namespace MonitorSueño.Controllers
         public String IsMexApp { get; set; }
         public String usuario { get; set; }
         public String color_id { get; set; }
-        public String comenatarios { get; set; }
+        public String comentarios { get; set; }
         public String fechaFin { get; set; }
         public String fechaFinDate { get; set; }
         public String fechaInicio { get; set; }
