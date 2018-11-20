@@ -45,7 +45,7 @@ namespace MonitorSueño.Controllers
             return lista;
         }
         [Route("GetSuenos/insert")]
-        [HttpGet]
+        [HttpPost]
         public String GetAllSuenos(String comentarios,String fFin,String fInicio,int id,int sqlId,int tipoActividad,int usuarioId)
         {
             /***
@@ -54,6 +54,17 @@ namespace MonitorSueño.Controllers
              * **/
 
             return "salida sueños";
+        }
+        [Route("GetSuenos/test")]
+        [HttpPost]
+        public String GetAllSuenos(String comentarios,int usuarioId)
+        {
+            /***
+             * Este método sera el encargada de realizar las inserciones
+             * de los sueños.
+             * **/
+
+            return "salida sueños desde test";
         }
 
     }

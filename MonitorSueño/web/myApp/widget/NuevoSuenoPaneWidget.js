@@ -90,6 +90,8 @@
                     var id = parseInt(this.infoOperador.id);
                     var sqlId = 0;
                     var tipoActividad = 1;
+
+                    
                     debugger;
                     alert("Inicio : " + fechaInicio);
                     alert("Fin : "+ fechaFin);
