@@ -150,7 +150,7 @@
                     });*/
                     //this.myDialog.show();
                     this.master.bitacora._setOperadorBusqueda(row.data);
-                    debugger
+                    
                     /**
                      * Se pasa el objeto seleccionado al filtro de bitacora.
                      * **/

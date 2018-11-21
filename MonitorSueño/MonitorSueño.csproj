@@ -98,6 +98,7 @@
     <Content Include="web\myApp\widget\templates\FiltroMonitorWidget.html" />
     <Content Include="web\myApp\widget\templates\MonitorSuenoWidget.html" />
     <Content Include="web\myApp\widget\templates\NuevoSuenoPaneWidget.html" />
+    <Content Include="web\myHelper.js" />
     <Content Include="web\Resource.css" />
   </ItemGroup>
   <ItemGroup>

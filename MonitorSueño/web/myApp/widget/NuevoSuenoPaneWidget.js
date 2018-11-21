@@ -7,6 +7,7 @@
     "dijit/_TemplatedMixin",
     "dijit/_WidgetsInTemplateMixin",
     "dijit/layout/ContentPane",
+    "dijit/layout/TabContainer",
     "dijit/MenuBar",
     "dijit/MenuBarItem",
     "dijit/layout/BorderContainer",
@@ -39,6 +40,7 @@
         _TemplatedMixin,
         _WidgetsInTemplateMixin,
         ContentPane,
+        TabContainer,
         ManuBar,
         MenuBarItem,
         BorderContainer,
@@ -90,9 +92,32 @@
                     var id = parseInt(this.infoOperador.id);
                     var sqlId = 0;
                     var tipoActividad = 1;
-
-                    
+                    var inicio = createDate(fechaInicio).getMilliseconds();
+                    /**Con el getTime() se obtiene el número de milisegundos**/
+                    var fin = createDate(fechaFin).getTime();
                     debugger;
+                    var url = "http://localhost:63915/GetSuenos/insert/" +
+                        "abc/" +
+                        inicio+"/"+
+                        fin + "/" +
+                        "/" + 5 +
+                        "/" + 5 +
+                        "/" + 5 +
+                        "/" + 2;
+                    
+                    var deferred = xhr.get(url,{
+                        /*data:{
+                            comentarios: "abc",
+                            fFin: fechaFin,
+                            fInicio: fechaInicio,
+                            id: 5,
+                            sqlId: 5,
+                            tipoActividad: 5,
+                            usuarioId:2
+                        }*/
+                    });
+                    when(deferred, function (response) { }, function (err) { });
+                    
                     alert("Inicio : " + fechaInicio);
                     alert("Fin : "+ fechaFin);
                 }));
@@ -103,8 +128,9 @@
                 this.comentariosWidget.set("value", object.comentarios);
                 this.informacion = object;
                 this.infoOperador = infoOperador;
-                var fechaInicio = object.fechaInicio.substr(0, 8);
-                var fechaFin = object.fechaFin.substr(0, 8);
+                var fechaInicio = object.fechaInicio.substr(0, 10);
+                var fechaFin = object.fechaFin.substr(0, 10);
+                debugger;
                 var timeInicio = "T".concat(object.fechaInicio.substr(11, 8));
                 var timeFin = "T".concat(object.fechaFin.substr(11, 8));
                 this.fechaInicioWidget.set("displayedValue", fechaInicio);

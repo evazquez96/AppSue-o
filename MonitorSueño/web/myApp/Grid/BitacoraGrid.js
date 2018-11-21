@@ -68,7 +68,8 @@
             _initEvents: function () {
                 this.myDialog = new Dialog({
                     title: "Nuevo Sueño",
-                    content: this.nuevoSueno
+                    content: this.nuevoSueno,
+                    style:"width:35%!important;"
                 });
                 this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this, function (event) {
                     var row = this.row(event);
