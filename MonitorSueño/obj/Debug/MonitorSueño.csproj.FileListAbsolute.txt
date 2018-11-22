@@ -136,3 +136,4 @@ C:\Users\eduardo\Documents\logsys\AppSueno\MonitorSueño\obj\Debug\MonitorSueño
 C:\Users\eduardo\Documents\logsys\AppSueno\MonitorSueño\obj\Debug\MonitorSueño.pdb
 C:\Users\eduardo\Documents\logsys\AppSueno\MonitorSueño\bin\web\MonitorSueño.html
 C:\Users\eduardo\Documents\logsys\AppSueno\MonitorSueño\obj\Debug\MonitorSueño.csprojResolveAssemblyReference.cache
+C:\Users\HP\Documents\Repositorios\Proyectos\WebServiceBitacora\MonitorSueño\bin\web\MonitorSueño.html

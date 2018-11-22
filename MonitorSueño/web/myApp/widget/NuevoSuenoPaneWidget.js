@@ -87,7 +87,7 @@
                 on(this.btnInsertar, "click", lang.hitch(this, function (event) {
                     var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
                     var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
-                    var comentarios = this.comentariosWidget.get("value");
+                    //var comentarios = this.comentariosWidget.get("value");
                     var usuarioId = parseInt(this.infoOperador.usuarioId);
                     var id = parseInt(this.infoOperador.id);
                     var sqlId = 0;
@@ -95,15 +95,17 @@
                     var inicio = createDate(fechaInicio).getTime();
                     /**Con el getTime() se obtiene el número de milisegundos**/
                     var fin = createDate(fechaFin).getTime();
-                    //debugger;
+                    var comentarios = this.comentariosWidget.get("value") == null ? "Sueño manual" : this.comentariosWidget.get("value");
+                    debugger;
+                    //[Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
                     var url = "http://localhost:63915/GetSuenos/insert/" +
-                        "abc/" +
+                        comentarios + "/"+
                         fin+"/"+
-                        inicio + "/" +
+                        inicio +
+                        "/" + this.informacion.id +
+                        "/" + sqlId.toString() +
                         "/" + 5 +
-                        "/" + 5 +
-                        "/" + 5 +
-                        "/" + 2;
+                        "/" + usuarioId.toString();
                     
                     var deferred = xhr.get(url,{
                         /*data:{
@@ -130,7 +132,7 @@
                 this.infoOperador = infoOperador;
                 var fechaInicio = object.fechaInicio.substr(0, 10);
                 var fechaFin = object.fechaFin.substr(0, 10);
-                debugger;
+                
                 var timeInicio = "T".concat(object.fechaInicio.substr(11, 8));
                 var timeFin = "T".concat(object.fechaFin.substr(11, 8));
                 this.fechaInicioWidget.set("displayedValue", fechaInicio);

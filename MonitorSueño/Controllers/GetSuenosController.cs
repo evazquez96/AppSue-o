@@ -61,17 +61,28 @@ namespace MonitorSueño.Controllers
                 aux.Add(nuevo);
                 auto_increment += 1;
             }
-            var z = 0 + 9;
             return aux;
         }
         [Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
         [HttpGet]
-        public String GetAllSuenos(String comentarios,long fFin,long fInicio,int id,int sqlId,int tipoActividad,int usuarioId)
+        public String GetAllSuenos(String comentarios,long fFin,long fInicio,String id,String sqlId,String tipoActividad,String usuarioId)
         {
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             DateTime inicio = start.AddMilliseconds(fInicio).ToLocalTime();
             DateTime fin = start.AddMilliseconds(fFin).ToLocalTime();
+            var FchFnUnixInicio = System.Convert.ToInt64((inicio - start).TotalSeconds);
+            var FchFnUnixFin = System.Convert.ToInt64((fin - start).TotalSeconds);
+            string fecha_final = "/Date(" + FchFnUnixInicio + "000-0500)/";
+            string fecha_inicial = "/Date(" + FchFnUnixFin + "000-0500)/";
+            GuardarSuenoData nuevo = new GuardarSuenoData();
+            nuevo.comentarios = comentarios;
+            nuevo.fechaFin = fecha_final;
+            nuevo.fechaInicio = fecha_inicial;
+            nuevo.id = id;
+            nuevo.sql_id = sqlId;
+            nuevo.tipoActividadId = tipoActividad;
+            nuevo.usuarioId = usuarioId;
             var z = fFin;
             /***
              * 
@@ -99,6 +110,16 @@ namespace MonitorSueño.Controllers
         public int usuario_id;
         public string fechaInicial { get; set; }
         public string fechaFinal { get; set; }
+    }
+    public class GuardarSuenoData {
+        public String comentarios { get; set; }
+        public String fechaFin { get; set; }
+        public String fechaInicio { get; set; }
+        public String id { get; set; }
+        public String sql_id { get; set; }
+        public String tipoActividadId { get; set; }
+        public String usuarioId { get; set; }
+       
     }
     public class Response
     {

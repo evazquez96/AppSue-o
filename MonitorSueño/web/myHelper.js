@@ -6,7 +6,6 @@
     var hora = cadena.substr(11, 2);
     var minuto = cadena.substr(14, 2);
     var segundo = cadena.substr(17, 2);
-    debugger
     return new Date(
         anio,
         parseInt(mes)-1,
