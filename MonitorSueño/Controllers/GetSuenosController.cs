@@ -67,14 +67,17 @@ namespace MonitorSueño.Controllers
         [HttpGet]
         public String GetAllSuenos(String comentarios,long fFin,long fInicio,String id,String sqlId,String tipoActividad,String usuarioId)
         {
+            WebRequest request = WebRequest.Create("http://tms.logsys.com.mx/Dream/Sueno/Sueno.svc/guardar");
+            request.Method = "POST";
+
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             DateTime inicio = start.AddMilliseconds(fInicio).ToLocalTime();
             DateTime fin = start.AddMilliseconds(fFin).ToLocalTime();
             var FchFnUnixInicio = System.Convert.ToInt64((inicio - start).TotalSeconds);
             var FchFnUnixFin = System.Convert.ToInt64((fin - start).TotalSeconds);
-            string fecha_final = "/Date(" + FchFnUnixInicio + "000-0500)/";
-            string fecha_inicial = "/Date(" + FchFnUnixFin + "000-0500)/";
+            string fecha_final = "/Date(" + FchFnUnixFin + "000-0500)/";
+            string fecha_inicial = "/Date(" + FchFnUnixInicio + "000-0500)/";
             GuardarSuenoData nuevo = new GuardarSuenoData();
             nuevo.comentarios = comentarios;
             nuevo.fechaFin = fecha_final;
@@ -83,7 +86,23 @@ namespace MonitorSueño.Controllers
             nuevo.sql_id = sqlId;
             nuevo.tipoActividadId = tipoActividad;
             nuevo.usuarioId = usuarioId;
-            var z = fFin;
+            var jsonData = JsonConvert.SerializeObject(nuevo);
+            string postData = jsonData;
+            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+            request.ContentType = "application/json";
+            request.ContentLength = byteArray.Length;
+            Stream dataStream = request.GetRequestStream();
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            dataStream.Close();
+            WebResponse response = request.GetResponse();
+            //Console.WriteLine(((HttpWebResponse)response).StatusDescription);
+            dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string responseFromServer = reader.ReadToEnd();
+            //Console.WriteLine(responseFromServer);
+            reader.Close();
+            dataStream.Close();
+            response.Close();
             /***
              * 
              * Este método sera el encargada de realizar las inserciones

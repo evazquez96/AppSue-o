@@ -89,22 +89,22 @@
                     var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
                     //var comentarios = this.comentariosWidget.get("value");
                     var usuarioId = parseInt(this.infoOperador.usuarioId);
-                    var id = parseInt(this.infoOperador.id);
+                    var id = parseInt(this.informacion.id);
                     var sqlId = 0;
                     var tipoActividad = 1;
                     var inicio = createDate(fechaInicio).getTime();
                     /**Con el getTime() se obtiene el número de milisegundos**/
                     var fin = createDate(fechaFin).getTime();
-                    var comentarios = this.comentariosWidget.get("value") == null ? "Sueño manual" : this.comentariosWidget.get("value");
+                    var comentarios = this.comentariosWidget.get("value") == "" ? "Sueño manual" : this.comentariosWidget.get("value");
                     debugger;
                     //[Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
                     var url = "http://localhost:63915/GetSuenos/insert/" +
-                        comentarios + "/"+
+                        comentarios+",,," + "/"+
                         fin+"/"+
                         inicio +
-                        "/" + this.informacion.id +
-                        "/" + sqlId.toString() +
-                        "/" + 5 +
+                        "/" + id.toString() +
+                        "/" + "0" +
+                        "/" + "2" +
                         "/" + usuarioId.toString();
                     
                     var deferred = xhr.get(url,{
