@@ -149,6 +149,10 @@
                         content: new NuevoSueno()
                     });*/
                     //this.myDialog.show();
+                    this.master.bitacora.iniciarFecha();
+                    /**
+                     * Inicializa con las fechas actuales del sistema.
+                     * **/
                     this.master.bitacora._setOperadorBusqueda(row.data);
                     
                     /**

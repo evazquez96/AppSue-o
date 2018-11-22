@@ -72,6 +72,9 @@
                 })
                 this._initGridBitacora();
                 this.bitacoraGrid._initEvents();
+                on(this.buscarWidget, "click", lang.hitch(this, function (event) {
+                    alert("click")
+                }));
             },
             
             constructor: function (arguments) {
@@ -82,29 +85,7 @@
                 */
             },
             onShow: function () {
-                var actual = new Date();
-                /**
-                 * Obtiene la fecha actual y la fija en el 
-                 * widget de la fecha inicio de la búsqueda.
-                 * **/
-                /**
-                 * Fija la fecha actual.
-                 * **/
-                var b = this.formato(actual);
-                this.fechaFinWidget.set("value", b)
-
-                actual.setDate(actual.getDate() - 7);
-                /***
-                 * Resta 7 días a la fecha actual.
-                 * **/
-                b = this.formato(actual);
-                this.fechaInicioWidget.set("value", b)
-                /**
-                 * Fija la fecha fin de la busqueda.
-                 * **/
-                
-                console.log(actual);
-                //alert("arriba")
+                this.iniciarFecha();
             },
             _initGridBitacora: function () {
                 this.gridBitacora.addChild(this.bitacoraGrid);
@@ -157,7 +138,7 @@
             _consultarSueno: function (object) {
 
                 var context = this;
-                this.iniciarFecha();
+                
                 var z = this.fechaFinWidget.value;
                 var v = this.fechaInicioWidget.value;
                 var inicio =new Date(this.fechaInicioWidget.value).getTime() / 1000;

@@ -86,6 +86,7 @@
                 this.on(".dgrid-content .dgrid-row:dblclick", lang.hitch(this, function (event) {
                     var row = this.row(event);
                     //debugger;
+                    //this.myDialog.content.iniciarFecha();
                     this.myDialog.content._setValues(row.data, this.master.infoOperador);
                     /***
                      * Manda el objeto con los valores para cambiarlos en el panel
