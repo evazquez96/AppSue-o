@@ -73,7 +73,10 @@
                 this._initGridBitacora();
                 this.bitacoraGrid._initEvents();
                 on(this.buscarWidget, "click", lang.hitch(this, function (event) {
-                    alert("click")
+                    if (this.infoOperador == null)
+                        alert("No se a seleccionado un operador");
+                    else
+                        this._consultarSueno(this.infoOperador);
                 }));
             },
             
@@ -83,6 +86,7 @@
                 La línea anterior permite manipular los objetos que se
                 pasan como argumentos en el constructo.
                 */
+                
             },
             onShow: function () {
                 this.iniciarFecha();
@@ -119,6 +123,12 @@
                  * **/
                 b = this.formato(actual);
                 this.fechaInicioWidget.set("value", b)
+                var hora = "T"+actual.getHours() + ":" + actual.getMinutes() + ":" + actual.getSeconds();
+                this.fechaInicioTimeWidget.set("value", hora);
+                /**
+                 * Cambia la hora actual del sistema
+                 * **/
+                //debugger;
                 /**
                  * Fija la fecha fin de la busqueda.
                  * **/
@@ -139,10 +149,15 @@
 
                 var context = this;
                 
-                var z = this.fechaFinWidget.value;
-                var v = this.fechaInicioWidget.value;
+                var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
+                var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
+                var inicio = createDate(fechaInicio).getTime()/1000;
+                /**Con el getTime() se obtiene el número de milisegundos**/
+                var fin = createDate(fechaFin).getTime()/1000;
+                /*
                 var inicio =new Date(this.fechaInicioWidget.value).getTime() / 1000;
                 var fin = new Date(this.fechaFinWidget.value).getTime() / 1000;
+                */
                 var url = "http://localhost:63915/api/GetSuenos/" + object.usuarioId + "/" + inicio + "/" + fin;
                
                 var deferred = xhr.get(url, {

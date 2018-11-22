@@ -328,6 +328,7 @@ public class MonitorHelper
                             case 3://La fecha fin del sueño coincide con la fecha_fin del evento pero el inicio del sueño no coincide con la fecha_inicio del evento
                                 evento.fecha_inicio = inicio;
                                 evento.comentarios = c;
+                                //evento.tipo_actividad_id = (int)StatusActividad.SUENO;//Agregue 22/11/2018
                                 evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
                                 temporal.fecha_fin = inicio;
                                 session.Save(temporal);
