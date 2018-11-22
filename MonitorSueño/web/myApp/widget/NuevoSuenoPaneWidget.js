@@ -92,14 +92,14 @@
                     var id = parseInt(this.infoOperador.id);
                     var sqlId = 0;
                     var tipoActividad = 1;
-                    var inicio = createDate(fechaInicio).getMilliseconds();
+                    var inicio = createDate(fechaInicio).getTime();
                     /**Con el getTime() se obtiene el número de milisegundos**/
                     var fin = createDate(fechaFin).getTime();
-                    debugger;
+                    //debugger;
                     var url = "http://localhost:63915/GetSuenos/insert/" +
                         "abc/" +
-                        inicio+"/"+
-                        fin + "/" +
+                        fin+"/"+
+                        inicio + "/" +
                         "/" + 5 +
                         "/" + 5 +
                         "/" + 5 +

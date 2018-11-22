@@ -41,13 +41,37 @@ namespace MonitorSueño.Controllers
             dataStream.Close();
             response.Close();
             var lista = JsonConvert.DeserializeObject<List<Response>>(responseFromServer);
-
-            return lista;
+            var aux = new List<Response>();
+            int auto_increment = 0;
+            foreach(Response item in lista)
+            {
+                var nuevo = new Response();
+                nuevo.color_id = item.color_id;
+                nuevo.comentarios = item.comentarios;
+                nuevo.fechaFin = item.fechaFin;
+                nuevo.fechaFinDate = item.fechaFinDate;
+                nuevo.fechaInicio = item.fechaInicio;
+                nuevo.fechaInicioDate = item.fechaInicioDate;
+                nuevo.id = item.id;
+                nuevo.int_automatica = item.int_automatica;
+                nuevo.IsMexApp = item.IsMexApp;
+                nuevo.tipoActividad = item.tipoActividad;
+                nuevo.usuario = item.usuario;
+                nuevo.auto_increment = auto_increment;
+                aux.Add(nuevo);
+                auto_increment += 1;
+            }
+            var z = 0 + 9;
+            return aux;
         }
         [Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
         [HttpGet]
         public String GetAllSuenos(String comentarios,long fFin,long fInicio,int id,int sqlId,int tipoActividad,int usuarioId)
         {
+            DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            DateTime inicio = start.AddMilliseconds(fInicio).ToLocalTime();
+            DateTime fin = start.AddMilliseconds(fFin).ToLocalTime();
             var z = fFin;
             /***
              * 
@@ -89,7 +113,7 @@ namespace MonitorSueño.Controllers
         public String id { get; set; }
         public String int_automatica { get; set; }
         public String tipoActividad { get; set; }
-
+        public int auto_increment { get; set; }
 
     }
 }

@@ -50,8 +50,21 @@
                     domStyle.set(div,"text-align","center")
                     return div;
                 }
+                column.renderHeaderCell = function (node) {
+                    var div = centerHeaderCell(column.label, domStyle);
+                    return div;
+                }
 
                 return column;
+            },
+            isMexAppColumn: function (column) {
+                column.renderCell = function (object, value, cell, options, headers) {
+                    var div = document.createElement("div")
+                    debugger;
+                    return div;
+                }
+                return column;
+
             },
             diferenciaFormatColumn: function (column) {
 
@@ -66,6 +79,10 @@
                     var fin = object.fechaFin;
                     div.innerHTML = value;
                     domStyle.set(div, "text-align", "center")
+                    return div;
+                }
+                column.renderHeaderCell = function (node) {
+                    var div = centerHeaderCell(column.label, domStyle);
                     return div;
                 }
 

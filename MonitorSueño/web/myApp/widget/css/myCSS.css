@@ -23,3 +23,8 @@
 .field-nombre {
     width: 250px!important;
 }
+
+.field-IsMexApp {
+    width:40px!important;
+    text-align:center!important
+}

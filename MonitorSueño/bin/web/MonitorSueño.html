@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Monitor de Sueño</title>
+    <link rel="stylesheet" href="myApp/widget/css/myCSS.css" />
+    <script src="Dojo/dojo/dojo.js"
+            data-dojo-config="async:true,parseOnLoad:false"></script>
+    <script src="myHelper.js"></script>
+    <script src="JSONHelper.js"></script>
+    <style>
+        @import "Dojo/dgrid/css/dgrid.css";
+        @import "Dojo/dgrid/css/skins/claro.css";
+        @import "Dojo/dojo/resources/dnd.css";
+    @import "Resource.css";
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: auto;
+        }
+        .claro .dgrid-row-odd {
+            background: #E0E0E0;
+        }
+
+        .dgrid-row {
+            height: 40px;
+        }
+        #grid {
+            width:100%!important;
+            overflow:auto!important;           
+        }
+    </style>
+    <link rel="stylesheet" href="Dojo/dijit/themes/claro/claro.css">
+
+</head>
+<body class="claro">
+    <div id="principal" style="height:100%;width:100%"></div>
+    <script>
+        require(["dojo/dom",
+            "/web/myApp/widget/MonitorSuenoWidget.js",
+            "dojo/domReady!"],
+            function (dom,
+                Monitor) {
+                var div = dom.byId("principal");
+                var monitor = new Monitor().placeAt(div);
+                monitor.startup();
+        })
+    </script>
+</body>
+</html>

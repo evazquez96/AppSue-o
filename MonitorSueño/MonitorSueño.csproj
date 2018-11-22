@@ -84,7 +84,9 @@
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="web\JSONHelper.js" />
-    <Content Include="web\MonitorSueño.html" />
+    <Content Include="web\MonitorSueño.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="web\myApp\Grid\BitacoraGrid.js" />
     <Content Include="web\myApp\Grid\GridBitacoraHelper.js" />
     <Content Include="web\myApp\Grid\GridMonitorHelper.js" />

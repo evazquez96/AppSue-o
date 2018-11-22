@@ -179,7 +179,7 @@
                         var suenosStore = new Memory({
                             data: response,
                             //id: ['NumEmpleado', 'Fecha'].join("#")
-                            idProperty: 'id'
+                            idProperty: 'auto_increment'
                         });
                         this.bitacoraGrid.set('collection', suenosStore);
                         this.bitacoraGrid.renderRow(response);

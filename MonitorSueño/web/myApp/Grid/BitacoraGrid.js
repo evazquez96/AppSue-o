@@ -54,14 +54,26 @@
             myDialog: null,
             master:null,
             columns: [
+                BitacoraHelper.defaultFormatColumn({ field: 'fechaInicio', label: 'Fecha Inicio' }),
+                BitacoraHelper.defaultFormatColumn({ field: 'fechaFin', label: 'Fecha Fin' }),
                 { field: 'Automatica', label: 'Automatica' },
+                BitacoraHelper.isMexAppColumn({
+                    editor: CheckBox,
+                    field: "IsMexApp",
+                    label: "MexApp",
+                    get: function (item) {
+                        // ensure initial rendering matches up with widget behavior
+                        //debugger
+                        return item.IsMexApp=="0" ? false : true;
+                    }
+                   
+                }),
                 BitacoraHelper.formatoSemaforoColumn({ field: 'color_id', label: 'Semaforo' }),
                 BitacoraHelper.diferenciaFormatColumn({ field: 'duracion', label: 'Duración' }),
                 BitacoraHelper.defaultFormatColumn({ field: 'tipoActividad', label: 'Actividad' }),
                 BitacoraHelper.defaultFormatColumn({ field: 'usuario', label: 'Usuario' }),
                 BitacoraHelper.defaultFormatColumn({ field: 'comentarios', label: 'Comentarios' }),
-                BitacoraHelper.defaultFormatColumn({ field: 'fechaInicio', label: 'Fecha Inicio' }),
-                BitacoraHelper.defaultFormatColumn({ field: 'fechaFin', label: 'Fecha Fin' })
+                
                 //{ field: 'id', label: 'Id' },
             ],
 
