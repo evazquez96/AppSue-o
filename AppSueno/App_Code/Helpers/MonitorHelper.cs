@@ -270,7 +270,7 @@ public class MonitorHelper
                             //nuevo.sql_id = 0;
                             nuevo.sql_id = 999;
                             nuevo.automatico = 0;
-                            //nuevo.semaforo_id = calcularSemaforoId(inicio, fin);
+                            nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, DateTime.Now);//Se agrego
                             session.Update(evento);
                             session.Save(nuevo);
                             response = 0;
@@ -287,6 +287,7 @@ public class MonitorHelper
                             nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
                             nuevo.sql_id = 0;
                             nuevo.automatico = 0;
+                            nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
                             Dreams nuevo2 = new Dreams();
                             //var b = evento.fecha_fin ?? DateTime.Now;
                             nuevo2.fecha_inicio = fin;
@@ -297,6 +298,7 @@ public class MonitorHelper
                             nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
                             nuevo2.sql_id = 999;
                             nuevo2.automatico = 0;
+                            nuevo2.semaforo_id = calcularSemaforoId(nuevo2.fecha_inicio, DateTime.Now);//Se agrego
                             session.Update(evento);
                             session.Save(nuevo);
                             session.Save(nuevo2);
@@ -321,6 +323,7 @@ public class MonitorHelper
                                 evento.fecha_fin = fin;
                                 evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
                                 temporal.fecha_inicio = fin;
+                                temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
                                 session.Save(temporal);
                                 session.Update(evento);
                                 response = 0;
@@ -328,9 +331,10 @@ public class MonitorHelper
                             case 3://La fecha fin del sueño coincide con la fecha_fin del evento pero el inicio del sueño no coincide con la fecha_inicio del evento
                                 evento.fecha_inicio = inicio;
                                 evento.comentarios = c;
-                                //evento.tipo_actividad_id = (int)StatusActividad.SUENO;//Agregue 22/11/2018
+                                evento.tipo_actividad_id = (int)StatusActividad.SUENO;//Agregue 22/11/2018
                                 evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
                                 temporal.fecha_fin = inicio;
+                                temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
                                 session.Save(temporal);
                                 session.Update(evento);
                                 response = 0;
@@ -346,7 +350,7 @@ public class MonitorHelper
                                 nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
                                 nuevo.sql_id = 0;
                                 nuevo.automatico = 0;
-                                nuevo.semaforo_id = calcularSemaforoId(inicio, fin);
+                                nuevo.semaforo_id = calcularSemaforoId(inicio, fin);//Se agrego
                                 Dreams nuevo2 = new Dreams();
                                 nuevo2.fecha_inicio = fin;
                                 nuevo2.fecha_fin = temporal.fecha_fin;
@@ -354,6 +358,7 @@ public class MonitorHelper
                                 nuevo2.usuario_id = temporal.usuario_id;
                                 nuevo2.tipo_actividad_id = temporal.tipo_actividad_id;
                                 nuevo2.sql_id = temporal.sql_id;
+                                nuevo2.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
                                 nuevo.automatico = temporal.automatico;
                                 nuevo.semaforo_id = calcularSemaforoId(fin, temporal.fecha_fin);
                                 session.Save(nuevo);
