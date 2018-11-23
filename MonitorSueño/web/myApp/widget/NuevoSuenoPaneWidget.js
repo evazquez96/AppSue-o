@@ -1,5 +1,7 @@
 ﻿define(["dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/dom",
+    "dijit/registry",
     "dojo/json",
     "dojo/store/Memory",
     "dojo/_base/array",
@@ -28,11 +30,14 @@
     "dstore/Memory",
     "dgrid/OnDemandGrid",
     "dgrid/ColumnSet",
-    "dgrid/extensions/DijitRegistry"
+    "dgrid/extensions/DijitRegistry",
+    "dojo/domReady!"
 ],
     function (
         declare,
         lang,
+        dom,
+        registry,
         json,
         Memory,
         array,
@@ -79,8 +84,18 @@
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
-
+                //this.selectTipoWidget.disabled= true;
                 this._initEvents();
+                this._disabledWidgets();
+                /**
+                 * _initEvents : Inicializa los eventos del widget.
+                 * _disabledWidget: Desabilita los widgets para que no puedan ser cambiados, al inicio solo sera de consulta.
+                 * **/
+            },
+            _disabledWidgets() {
+                registry.byId("selectTipoWidgetRead_").setAttribute("disabled", "true");//desabilita el tipo de actividad."
+                registry.byId("operadorWidgetRead_").setAttribute("disabled", "true"); 
+                registry.byId("fechaInicioWidgetRead_").setAttribute("disabled", "true");
             },
             _initEvents: function () {
                 /**Agregara los eventos a los widgets de los filstros***/

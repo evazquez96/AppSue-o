@@ -148,7 +148,7 @@
             _consultarSueno: function (object) {
 
                 var context = this;
-                
+               
                 var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
                 var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
                 var inicio = createDate(fechaInicio).getTime()/1000;
