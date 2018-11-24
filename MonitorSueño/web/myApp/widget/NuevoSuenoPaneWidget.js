@@ -161,7 +161,7 @@
                 }));
             },
             _setValues(object,infoOperador) {
-                console.log(object)
+                
                 this.operadorWidget.set("displayedValue", object.usuario);
                 this.comentariosWidget.set("value", object.comentarios);
                 this.informacion = object;
