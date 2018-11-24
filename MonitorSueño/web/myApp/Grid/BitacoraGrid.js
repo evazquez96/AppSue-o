@@ -88,6 +88,7 @@
                     //debugger;
                     //this.myDialog.content.iniciarFecha();
                     this.myDialog.content._setValues(row.data, this.master.infoOperador);
+                    this.myDialog.content._disabledOrEnabledWidgets(true);
                     /***
                      * Manda el objeto con los valores para cambiarlos en el panel
                      * de la inserción de sueño.

@@ -72,7 +72,11 @@
 
             templateString: template,
             informacion: null,
-            infoOperador:null,
+            infoOperador: null,
+            /*onShow: function () {
+                alert("afsdf")
+                this._disabledOrEnabledWidgets(true)
+            }*/
             constructor: function (arguments) {
                 lang.mixin(this, arguments);
                 /**
@@ -86,20 +90,37 @@
                 this.inherited(arguments);
                 //this.selectTipoWidget.disabled= true;
                 this._initEvents();
-                this._disabledWidgets();
+                this._disabledOrEnabledWidgets(true);
                 /**
                  * _initEvents : Inicializa los eventos del widget.
                  * _disabledWidget: Desabilita los widgets para que no puedan ser cambiados, al inicio solo sera de consulta.
                  * **/
+                
             },
-            _disabledWidgets() {
-                registry.byId("selectTipoWidgetRead_").setAttribute("disabled", "true");//desabilita el tipo de actividad."
-                registry.byId("operadorWidgetRead_").setAttribute("disabled", "true"); 
-                registry.byId("fechaInicioWidgetRead_").setAttribute("disabled", "true");
+            _disabledOrEnabledWidgets(bandera) {
+                /***
+                 * Esta función se encarga de inhabilitar los widget para que solo sean de
+                 * lectura, se habilitaran cuando le den click en insertar sueño.
+                 * bandera: true inhabilita los widget, false los habilita
+                 * **/
+                registry.byId("selectTipoWidget").setAttribute("disabled", bandera);//desabilita el tipo de actividad."
+                registry.byId("operadorWidget").setAttribute("disabled", bandera); 
+                registry.byId("fechaInicioWidget").setAttribute("disabled", bandera); 
+                registry.byId("fechaInicioTimeWidget").setAttribute("disabled", bandera);
+                registry.byId("fechaFinWidget").setAttribute("disabled", bandera);
+                registry.byId("fechaFinTimeWidget").setAttribute("disabled", bandera); 
+                registry.byId("comentariosWidget").setAttribute("disabled", bandera); 
+                registry.byId("btnGuardarWidget").setAttribute("disabled", bandera);
             },
             _initEvents: function () {
+                on(this.nuevoSuenoWidget, "click", lang.hitch(this, function (event) {
+                    /**
+                     * Agrega el evento al boton para habilitar los widget.
+                     * **/
+                    this._disabledOrEnabledWidgets(false);
+                }));
                 /**Agregara los eventos a los widgets de los filstros***/
-                on(this.btnInsertar, "click", lang.hitch(this, function (event) {
+                on(this.btnGuardarWidget, "click", lang.hitch(this, function (event) {
                     var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
                     var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
                     //var comentarios = this.comentariosWidget.get("value");

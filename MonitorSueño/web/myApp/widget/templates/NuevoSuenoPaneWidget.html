@@ -1,7 +1,8 @@
 ﻿<div style="width:100%;height:100%">
     <div data-dojo-type="dijit/layout/ContentPane">
         <div data-dojo-type="dijit/MenuBar" id="navMenu">
-            <div data-dojo-type="dijit/MenuBarItem">
+            <div data-dojo-type="dijit/MenuBarItem"
+                 data-dojo-attach-point="nuevoSuenoWidget">
                 Nuevo sueño
             </div>
         </div>
@@ -13,7 +14,7 @@
                  disabled>
             </div>
             <div data-dojo-type="dijit/form/Select"
-                 id="selectTipoWidgetRead_"
+                 id="selectTipoWidget"
                  data-dojo-props="colspan:2"
                  title="Tipo Operador :"
                  style="width: 180px!important">
@@ -32,7 +33,7 @@
                  disabled>
             </div>
             <div data-dojo-type="dijit/form/ValidationTextBox"
-                 id="operadorWidgetRead_"
+                 id="operadorWidget"
                  data-dojo-attach-point="operadorWidget"
                  style="width:99%!important"
                  colspan=3>
@@ -43,7 +44,7 @@
                  disabled>
             </div>
             <div data-dojo-type="dijit/form/DateTextBox"
-                 id="fechaInicioWidgetRead_"
+                 id="fechaInicioWidget"
                  data-dojo-attach-point="fechaInicioWidget">
             </div>
             <div data-dojo-type="dijit/form/TimeTextBox"
@@ -51,7 +52,7 @@
                  data-dojo-props="constraints:{
                         timePattern:'HH:mm:ss'
                      }"
-                 id="fechaInicioTimeWidgetRead_"
+                 id="fechaInicioTimeWidget"
                  data-dojo-attach-point="fechaInicioTimeWidget">
             </div>
             <div data-dojo-type="dijit/form/ValidationTextBox"
@@ -63,9 +64,11 @@
                  disabled>
             </div>
             <div data-dojo-type="dijit/form/DateTextBox"
+                 id="fechaFinWidget"
                  data-dojo-attach-point="fechaFinWidget">
             </div>
             <div data-dojo-type="dijit/form/TimeTextBox"
+                 id="fechaFinTimeWidget"
                  value="T00:00:00"
                  data-dojo-props="constraints:{
                         timePattern:'HH:mm:ss'
@@ -82,6 +85,7 @@
             </div>
             <div data-dojo-type="dijit/form/SimpleTextarea"
                  style="width:auto"
+                 id="comentariosWidget"
                  data-dojo-attach-point="comentariosWidget"
                  data-dojo-props="rows:4">
             </div>
@@ -93,8 +97,9 @@
             <div data-dojo-type="dijit/form/Button"
                  style="width:auto"
                  colspan="2"
+                 id="btnGuardarWidget"
                  data-dojo-props="label:'Insertar'"
-                 data-dojo-attach-point="btnInsertar">
+                 data-dojo-attach-point="btnGuardarWidget">
             </div>
 
         </div>
