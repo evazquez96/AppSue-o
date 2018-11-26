@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using NHibernate;
@@ -228,6 +230,31 @@ public class MonitorHelper
     }
 
 
+    public static void callStoredProcedureRecalcularSemaforos(int VariableID)
+    {
+        string queryerp = "EXECUTE dbo.RecalcularSemaforos" + "'" + VariableID + "'";
+
+        SqlConnection connectiondreams;
+        SqlCommand commanddream;
+        SqlTransaction transactiondream;
+        string BaseDreams = ConfigurationManager.ConnectionStrings["logsys_dream"].ToString();
+        connectiondreams = new SqlConnection(BaseDreams);
+        connectiondreams.Open();
+        commanddream = connectiondreams.CreateCommand();
+        transactiondream = connectiondreams.BeginTransaction();
+        commanddream.Connection = connectiondreams;
+        commanddream.Transaction = transactiondream;
+        commanddream.CommandText = queryerp;
+        try
+        {
+            commanddream.ExecuteNonQuery();
+            transactiondream.Commit();
+        }
+        catch
+        {
+            transactiondream.Rollback();
+        }
+    }
     public static int insertarSueno(int id_evento,String comentarios, DateTime inicio, DateTime fin)
     {
         int response = -1;
@@ -373,7 +400,11 @@ public class MonitorHelper
                     }
 
                     transaction.Commit();
-
+                    callStoredProcedureRecalcularSemaforos(id_evento);
+                    /***
+                     * Se manda a llamar al storedProcedure para recalcular semaforos
+                     * en la  base de datos de logsys_dreams.
+                     * **/
                 }
                 catch (Exception e)
                 {
