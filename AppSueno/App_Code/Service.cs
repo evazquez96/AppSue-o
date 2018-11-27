@@ -71,40 +71,54 @@ public class Service : System.Web.Services.WebService
         /**
          * Este servicio inserta un evento de Sueño cuando se tenga un status de sueño, descanso e inactivo.
          * **/
-        int codigoOperacion=-1;
         String response = "";
-        var diferencia = MonitorHelper.diferencia(inicio, fin);
-        if (diferencia > 480.00)
+        int codigoOperacion = -1;
+        if (fin == Convert.ToDateTime("0001-01-01 00:00:00"))
         {
-            codigoOperacion =1;
-        }else if (diferencia < 0.0)
-        {
-            codigoOperacion = 2;
-        }else if (diferencia >=0.0 && diferencia <=15.00)
-        {
-            codigoOperacion = 3;
+            /**
+             * Indica que la fecha_fin es null.
+             * **/
+
         }
         else
         {
-            codigoOperacion = MonitorHelper.insertarSueno(id_evento,comentarios, inicio, fin);
-        }
-        switch (codigoOperacion)
-        {
-            case 0:
-                response = "Sueño Insertado con éxito";
-                break;
-            case 1:
-                response = "ERROR: La diferencia entre la fecha de inicio y fecha fin es mayor a 8 hrs";
-                break;
-            case 2:
-                response = "ERROR: La fecha inicio del sueño debe ser mayor a la fecha fin del sueño";
-                break;
-            case 3:
-                response = "ERROR: La duración del sueño debe ser mayor a 15 minutos";
-                break;
-            default:
-                response = "ERROR al insertar Sueño";
-                break;
+            
+            
+            var diferencia = MonitorHelper.diferencia(inicio, fin);
+            if (diferencia > 480.00)
+            {
+                codigoOperacion = 1;
+            }
+            else if (diferencia < 0.0)
+            {
+                codigoOperacion = 2;
+            }
+            else if (diferencia >= 0.0 && diferencia <= 15.00)
+            {
+                codigoOperacion = 3;
+            }
+            else
+            {
+                codigoOperacion = MonitorHelper.insertarSueno(id_evento, comentarios, inicio, fin);
+            }
+            switch (codigoOperacion)
+            {
+                case 0:
+                    response = "Sueño Insertado con éxito";
+                    break;
+                case 1:
+                    response = "ERROR: La diferencia entre la fecha de inicio y fecha fin es mayor a 8 hrs";
+                    break;
+                case 2:
+                    response = "ERROR: La fecha inicio del sueño debe ser mayor a la fecha fin del sueño";
+                    break;
+                case 3:
+                    response = "ERROR: La duración del sueño debe ser mayor a 15 minutos";
+                    break;
+                default:
+                    response = "ERROR al insertar Sueño";
+                    break;
+            }
         }
         return response;
     }
