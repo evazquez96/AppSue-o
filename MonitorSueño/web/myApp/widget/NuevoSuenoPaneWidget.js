@@ -132,6 +132,7 @@
                     /**Con el getTime() se obtiene el número de milisegundos**/
                     var fin = createDate(fechaFin).getTime();
                     var comentarios = this.comentariosWidget.get("value") == "" ? "Sueño manual" : this.comentariosWidget.get("value");
+                    var esActivo = this.informacion.tipoActividad == "ACTIVO"?"2":"1";
                     debugger;
                     //[Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
                     var url = "http://localhost:63915/GetSuenos/insert/" +
@@ -140,9 +141,12 @@
                         inicio +
                         "/" + id.toString() +
                         "/" + "0" +
-                        "/" + "2" +
+                        "/" + esActivo +
                         "/" + usuarioId.toString();
-                    
+                    /**
+                     * Si es activo tipo_actividad_id se manda 2
+                     * en otro caso se manda 1.
+                     * ***/
                     var deferred = xhr.get(url,{
                         /*data:{
                             comentarios: "abc",
@@ -153,8 +157,21 @@
                             tipoActividad: 5,
                             usuarioId:2
                         }*/
+                        handleAs:'json'
                     });
-                    when(deferred, function (response) { }, function (err) { });
+                    when(deferred, function (response) {
+                        /***Espera la respuesta de la inserción de sueño
+                         * Aquí se manda a llamar al servicio para el recalculo 
+                         * de los semaforos.
+                         */
+                        console.log(response);
+
+                    }, function (error) {
+                        /**
+                         * Función de error que se llama, si la 
+                         * promesa (deferred) es rechazada.
+                         * ***/
+                    });
                     
                     alert("Inicio : " + fechaInicio);
                     alert("Fin : "+ fechaFin);

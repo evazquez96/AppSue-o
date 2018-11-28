@@ -73,7 +73,9 @@ namespace MonitorSueño.Controllers
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
             DateTime inicio = start.AddMilliseconds(fInicio).ToLocalTime();
+            //inicio.AddHours(-1);
             DateTime fin = start.AddMilliseconds(fFin).ToLocalTime();
+            //fin.AddHours(-1);
             var FchFnUnixInicio = System.Convert.ToInt64((inicio - start).TotalSeconds);
             var FchFnUnixFin = System.Convert.ToInt64((fin - start).TotalSeconds);
             string fecha_final = "/Date(" + FchFnUnixFin + "000-0500)/";
@@ -82,8 +84,8 @@ namespace MonitorSueño.Controllers
             nuevo.comentarios = comentarios;
             nuevo.fechaFin = fecha_final;
             nuevo.fechaInicio = fecha_inicial;
-            nuevo.id = id;
-            nuevo.sql_id = sqlId;
+            nuevo.id = null;
+            nuevo.sql_id = null;
             nuevo.tipoActividadId = tipoActividad;
             nuevo.usuarioId = usuarioId;
             var jsonData = JsonConvert.SerializeObject(nuevo);
@@ -110,7 +112,7 @@ namespace MonitorSueño.Controllers
              * 
              ***/
 
-            return "salida sueños";
+            return responseFromServer;
         }
         [Route("GetSuenos/test")]
         [HttpGet]

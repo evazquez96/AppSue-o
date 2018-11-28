@@ -255,6 +255,14 @@ public class MonitorHelper
             transactiondream.Rollback();
         }
     }
+    public static Dreams getUltimoEvento(Dreams evento,ISession session) {
+        List<Dreams> dreams = session.QueryOver<Dreams>().Where(x => x.usuario_id == evento.usuario_id).OrderBy(x => x.id).Desc.Take(10).List().ToList();
+        /***
+         * Regresa el ultimo evento.
+         * **/
+        return dreams[0];
+
+    }
     public static int insertarSueno(int id_evento,String comentarios, DateTime inicio, DateTime fin)
     {
         int response = -1;
@@ -271,136 +279,177 @@ public class MonitorHelper
                     temporal = evento.GetTemporal();
                     int codigoOp;
                     DateTime aux = Convert.ToDateTime("0001-01-01");
-
-                    //Inicio
-                    if (evento.fecha_fin == null)
-                    {
-                        int auxActividad = evento.tipo_actividad_id;
-
-                        /**
-                         * El if Verifica si la fecha_fin es null
-                         * **/
-                        if (evento.fecha_inicio == inicio)
-                        {//Verifica si la fecha_inicio del evento coincide con la fecha inicio del sueño
-                            evento.fecha_fin = fin;
-                            evento.tipo_actividad_id = (int)StatusActividad.SUENO;
-                            evento.comentarios = c;
-                            evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
+                    if (fin ==Convert.ToDateTime("0001-01-01 00:00:00")) {
+                        /***
+                         * Verifica si la fecha que se manda desde el servicio es null,
+                         * para insertar sueño en el evento actual.
+                         * ***/
+                        Dreams ultimo= getUltimoEvento(evento, session);
+                        ultimo.fecha_fin = inicio;
+                        ultimo.semaforo_id = calcularSemaforoId(ultimo.fecha_inicio, ultimo.fecha_fin);
+                        if (ultimo.fecha_inicio == inicio)
+                        {
+                            ultimo.tipo_actividad_id = (int)StatusActividad.SUENO;
+                            ultimo.fecha_fin = null;
+                            session.Update(ultimo);
+                        }
+                        else
+                        {
                             Dreams nuevo = new Dreams();
-                            nuevo.fecha_inicio = fin;
+                            nuevo.fecha_inicio = inicio;
                             nuevo.fecha_fin = null;
-                            //nuevo.comentarios = c;
-                            nuevo.comentarios = "Automatico";
-                            nuevo.usuario_id = evento.usuario_id;
-                            //nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
-                            nuevo.tipo_actividad_id = auxActividad;
-                            //nuevo.sql_id = 0;
+                            nuevo.semaforo_id = calcularSemaforoId(inicio, null);
+                            nuevo.comentarios = c;
+                            nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
                             nuevo.sql_id = 999;
                             nuevo.automatico = 0;
-                            nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, DateTime.Now);//Se agrego
-                            session.Update(evento);
+                            nuevo.usuario_id = ultimo.usuario_id;
+                            session.SaveOrUpdate(ultimo);
                             session.Save(nuevo);
-                            response = 0;
-                        }else if (inicio > evento.fecha_inicio)
-                        {
-                            evento.fecha_fin = inicio;
-                            evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
-                            Dreams nuevo = new Dreams();
-                            var d = evento.fecha_fin ?? DateTime.Now;
-                            nuevo.fecha_inicio = d;
-                            nuevo.fecha_fin = fin;
-                            nuevo.comentarios = c;
-                            nuevo.usuario_id = evento.usuario_id;
-                            nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
-                            nuevo.sql_id = 0;
-                            nuevo.automatico = 0;
-                            nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
-                            Dreams nuevo2 = new Dreams();
-                            //var b = evento.fecha_fin ?? DateTime.Now;
-                            nuevo2.fecha_inicio = fin;
-                            nuevo2.fecha_fin = null;
-                            nuevo2.comentarios = "Automatico";
-                            nuevo2.comentarios = evento.comentarios;
-                            nuevo2.usuario_id = evento.usuario_id;
-                            nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
-                            nuevo2.sql_id = 999;
-                            nuevo2.automatico = 0;
-                            nuevo2.semaforo_id = calcularSemaforoId(nuevo2.fecha_inicio, DateTime.Now);//Se agrego
-                            session.Update(evento);
-                            session.Save(nuevo);
-                            session.Save(nuevo2);
-                            response = 0;
-                            //nuevo.semaforo_id = calcularSemaforoId(inicio, fin);
                         }
+                        //transaction.Commit();
+                        response = 0;
                     }
-                    else
-                    {
-                        codigoOp= codigoOperacion(evento, inicio, fin);
-                        switch (codigoOp)
+                    else { 
+                        //Inicio
+                        if (evento.fecha_fin == null)
                         {
-                            case 1://Cambia el status actual del evento a sueño.
-                                evento.tipo_actividad_id = (int)StatusActividad.SUENO;
-                                evento.comentarios = c;
-                                session.Update(evento);
-                                response = 0;
-                                break;
-                            case 2://La fecha inicio del sueño coincide con la fecha_inicio del evento
-                                evento.tipo_actividad_id = (int)StatusActividad.SUENO;
-                                evento.comentarios = c;
+                            int auxActividad = evento.tipo_actividad_id;
+
+                            /**
+                             * El if Verifica si la fecha_fin es null
+                             * **/
+                            if (evento.fecha_inicio == inicio)
+                            {//Verifica si la fecha_inicio del evento coincide con la fecha inicio del sueño
                                 evento.fecha_fin = fin;
-                                evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
-                                temporal.fecha_inicio = fin;
-                                temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
-                                session.Save(temporal);
-                                session.Update(evento);
-                                response = 0;
-                                break;
-                            case 3://La fecha fin del sueño coincide con la fecha_fin del evento pero el inicio del sueño no coincide con la fecha_inicio del evento
-                                evento.fecha_inicio = inicio;
+                                evento.tipo_actividad_id = (int)StatusActividad.SUENO;
                                 evento.comentarios = c;
-                                evento.tipo_actividad_id = (int)StatusActividad.SUENO;//Agregue 22/11/2018
                                 evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
-                                temporal.fecha_fin = inicio;
-                                temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
-                                session.Save(temporal);
-                                session.Update(evento);
+                                Dreams nuevo = new Dreams();
+                                nuevo.fecha_inicio = fin;
+                                nuevo.fecha_fin = null;
+                                //nuevo.comentarios = c;
+                                nuevo.comentarios = "Automatico";
+                                nuevo.usuario_id = evento.usuario_id;
+                                //nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
+                                nuevo.tipo_actividad_id = auxActividad;
+                                //nuevo.sql_id = 0;
+                                nuevo.sql_id = 999;
+                                nuevo.automatico = 0;
+                                nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, DateTime.Now);//Se agrego
                                 response = 0;
-                                break;
-                            case 4://Cuando el inicio y el fin del sueño no coiciden exactamente con la fecha_inicio y fecha_fin del evento.
+                                session.Update(evento);
+                                session.Save(nuevo);
+                                response = 0;
+                            }else if (inicio > evento.fecha_inicio)
+                            {
                                 evento.fecha_fin = inicio;
                                 evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
                                 Dreams nuevo = new Dreams();
-                                nuevo.fecha_inicio = inicio;
+                                var d = evento.fecha_fin ?? DateTime.Now;
+                                nuevo.fecha_inicio = d;
                                 nuevo.fecha_fin = fin;
                                 nuevo.comentarios = c;
                                 nuevo.usuario_id = evento.usuario_id;
                                 nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
                                 nuevo.sql_id = 0;
                                 nuevo.automatico = 0;
-                                nuevo.semaforo_id = calcularSemaforoId(inicio, fin);//Se agrego
+                                nuevo.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
                                 Dreams nuevo2 = new Dreams();
+                                //var b = evento.fecha_fin ?? DateTime.Now;
                                 nuevo2.fecha_inicio = fin;
-                                nuevo2.fecha_fin = temporal.fecha_fin;
-                                nuevo2.comentarios = temporal.comentarios;
-                                nuevo2.usuario_id = temporal.usuario_id;
-                                nuevo2.tipo_actividad_id = temporal.tipo_actividad_id;
-                                nuevo2.sql_id = temporal.sql_id;
-                                nuevo2.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
-                                nuevo.automatico = temporal.automatico;
-                                nuevo.semaforo_id = calcularSemaforoId(fin, temporal.fecha_fin);
+                                nuevo2.fecha_fin = null;
+                                nuevo2.comentarios = "Automatico";
+                                nuevo2.comentarios = evento.comentarios;
+                                nuevo2.usuario_id = evento.usuario_id;
+                                nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
+                                nuevo2.sql_id = 999;
+                                nuevo2.automatico = 0;
+                                nuevo2.semaforo_id = calcularSemaforoId(nuevo2.fecha_inicio, DateTime.Now);//Se agrego
+                                session.Update(evento);
                                 session.Save(nuevo);
                                 session.Save(nuevo2);
-                                session.Update(evento);
                                 response = 0;
-                                break;
-                            default:
-                                break;
+                                //nuevo.semaforo_id = calcularSemaforoId(inicio, fin);
+                            }
                         }
-                        //fin
+                        else
+                        {
+                            codigoOp= codigoOperacion(evento, inicio, fin);
+                            switch (codigoOp)
+                            {
+                                case 1://Cambia el status actual del evento a sueño.
+                                    evento.tipo_actividad_id = (int)StatusActividad.SUENO;
+                                    evento.comentarios = c;
+                                    session.Update(evento);
+                                    response = 0;
+                                    break;
+                                case 2://La fecha inicio del sueño coincide con la fecha_inicio del evento
+                                    evento.tipo_actividad_id = (int)StatusActividad.SUENO;
+                                    evento.comentarios = c;
+                                    evento.fecha_fin = fin;
+                                    evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
+                                    temporal.fecha_inicio = fin;
+                                    temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
+                                    session.Save(temporal);
+                                    session.Update(evento);
+                                    response = 0;
+                                    break;
+                                case 3://La fecha fin del sueño coincide con la fecha_fin del evento pero el inicio del sueño no coincide con la fecha_inicio del evento
+                                    evento.fecha_inicio = inicio;
+                                    evento.comentarios = c;
+                                    evento.tipo_actividad_id = (int)StatusActividad.SUENO;//Agregue 22/11/2018
+                                    evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
+                                    temporal.fecha_fin = inicio;
+                                    temporal.semaforo_id = calcularSemaforoId(temporal.fecha_inicio, temporal.fecha_fin);//Se agrego
+                                    session.Save(temporal);
+                                    session.Update(evento);
+                                    response = 0;
+                                    break;
+                                case 4://Cuando el inicio y el fin del sueño no coiciden exactamente con la fecha_inicio y fecha_fin del evento.
+                                    evento.fecha_fin = inicio;
+                                    evento.semaforo_id = calcularSemaforoId(evento.fecha_inicio, evento.fecha_fin);
+                                    Dreams nuevo = new Dreams();
+                                    nuevo.fecha_inicio = inicio;
+                                    nuevo.fecha_fin = fin;
+                                    nuevo.comentarios = c;
+                                    nuevo.usuario_id = evento.usuario_id;
+                                    nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
+                                    nuevo.sql_id = 0;
+                                    nuevo.automatico = 0;
+                                    nuevo.semaforo_id = calcularSemaforoId(inicio, fin);//Se agrego
+                                    Dreams nuevo2 = new Dreams();
+                                    nuevo2.fecha_inicio = fin;
+                                    nuevo2.fecha_fin = temporal.fecha_fin;
+                                    nuevo2.comentarios = temporal.comentarios;
+                                    nuevo2.usuario_id = temporal.usuario_id;
+                                    nuevo2.tipo_actividad_id = temporal.tipo_actividad_id;
+                                    nuevo2.sql_id = temporal.sql_id;
+                                    nuevo2.semaforo_id = calcularSemaforoId(nuevo.fecha_inicio, nuevo.fecha_fin);//Se agrego
+                                    nuevo.automatico = temporal.automatico;
+                                    nuevo.semaforo_id = calcularSemaforoId(fin, temporal.fecha_fin);
+                                    session.Save(nuevo);
+                                    session.Save(nuevo2);
+                                    session.Update(evento);
+                                    response = 0;
+                                    break;
+                                default:
+                                    break;
+                            }
+                            //fin
+                        }
                     }
 
+                    
+                    Recalculo recalculo = new Recalculo();
+                    recalculo.Id_Evento = id_evento;
+                    recalculo.Procesado = 0;
+                    /***
+                     * Se manda un registro a la tabla de recalculo
+                     * **/
+                    session.Save(recalculo);
+
                     transaction.Commit();
-                    callStoredProcedureRecalcularSemaforos(id_evento);
                     /***
                      * Se manda a llamar al storedProcedure para recalcular semaforos
                      * en la  base de datos de logsys_dreams.
