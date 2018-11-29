@@ -300,10 +300,20 @@ public class MonitorHelper
                             nuevo.fecha_fin = null;
                             nuevo.semaforo_id = calcularSemaforoId(inicio, null);
                             nuevo.comentarios = c;
-                            nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
                             nuevo.sql_id = 999;
                             nuevo.automatico = 0;
                             nuevo.usuario_id = ultimo.usuario_id;
+
+                            if (ultimo.tipo_actividad_id == (int)StatusActividad.SUENO)
+                            {
+                                /**Verificamos si el evento actual sea un sueño**/
+                                nuevo.tipo_actividad_id = (int)StatusActividad.INACTIVO;
+
+                            }
+                            else
+                            {
+                                nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
+                            }
                             session.SaveOrUpdate(ultimo);
                             session.Save(nuevo);
                         }
@@ -446,7 +456,7 @@ public class MonitorHelper
                     Recalculo recalculo = new Recalculo();
                     recalculo.Id_Evento = id_evento;
                     recalculo.Procesado = 0;
-                    /***
+                    /*
                      * Se manda un registro a la tabla de recalculo
                      * **/
                     session.Save(recalculo);
