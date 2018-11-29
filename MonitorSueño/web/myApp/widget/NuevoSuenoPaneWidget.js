@@ -132,8 +132,12 @@
                     /**Con el getTime() se obtiene el número de milisegundos**/
                     var fin = createDate(fechaFin).getTime();
                     var comentarios = this.comentariosWidget.get("value") == "" ? "Sueño manual" : this.comentariosWidget.get("value");
-                    var esActivo = this.informacion.tipoActividad == "ACTIVO"?"2":"1";
-                    debugger;
+                    var esActivo = this.informacion.tipoActividad == "ACTIVO" ? "2" : "1";
+                    this.master.master.master.iniciarCarga();
+                    /**
+                     * Se inicializa la carga para que aparesca el circulo de cargando
+                     * **/
+                    //debugger;
                     //[Route("GetSuenos/insert/{comentarios}/{fFin}/{fInicio}/{id}/{sqlId}/{tipoActividad}/{usuarioId}")]
                     var url = "http://localhost:63915/GetSuenos/insert/" +
                         comentarios+",,," + "/"+
@@ -159,22 +163,23 @@
                         }*/
                         handleAs:'json'
                     });
-                    when(deferred, function (response) {
+                    when(deferred, lang.hitch(this,function (response) {
                         /***Espera la respuesta de la inserción de sueño
                          * Aquí se manda a llamar al servicio para el recalculo 
                          * de los semaforos.
                          */
                         console.log(response);
-
-                    }, function (error) {
+                        this.master.master.master.terminarCarga();
+                    }), lang.hitch(this,function(error) {
+                        this.master.terminarCarga();
                         /**
                          * Función de error que se llama, si la 
                          * promesa (deferred) es rechazada.
                          * ***/
-                    });
+                    }));
                     
-                    alert("Inicio : " + fechaInicio);
-                    alert("Fin : "+ fechaFin);
+                    //alert("Inicio : " + fechaInicio);
+                    //alert("Fin : "+ fechaFin);
                 }));
             },
             _setValues(object,infoOperador) {

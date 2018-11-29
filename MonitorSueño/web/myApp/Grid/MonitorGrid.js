@@ -67,8 +67,9 @@
 
            
             _initMonitor: function (nombre) {
+
                 this._initEvents()
-                
+                this.master.iniciarCarga();
                 console.log("Iniciando Monitor")
                 var deferred = request.post("http://app.mexamerik.com/Dream/Sueno/Monitor.svc/consultar", {
                     data:json.toJson({
@@ -96,6 +97,7 @@
                         this.renderArray(json);
                         this.collectionOriginal = monitorStore;
                         this.refresh();
+                        this.master.terminarCarga();
 
                     }), function (error) {
                         alert(error);

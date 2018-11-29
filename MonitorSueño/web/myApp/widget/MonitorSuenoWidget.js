@@ -26,6 +26,7 @@
     "dgrid/OnDemandGrid",
     "dgrid/ColumnSet",
     "dgrid/extensions/DijitRegistry",
+    "dojox/widget/Standby",
     "dojo/domReady!"
 ],
     function (
@@ -56,19 +57,38 @@
         Memory,
         OnDemandGrid,
         ColumnSet,
-        DijitRegistry
+        DijitRegistry,
+        Standby
     ) {
         return declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
             templateString: template,
             filtro: null,
             bitacora: null,
-
+            standby:null,
+            iniciarCarga: function () {
+                this.standby.set("color", "#5A748F");
+                this.standby.show();
+            },
+            terminarCarga: function () {
+                this.standby.hide();
+            },
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
+                this.standby= new Standby({
+                    target: 'contenedor',
+                    text:'Cargando'
+                })
+                /***
+                 * La propiedad de standby nos permitira 
+                 * agregar un circulo que gire indicando 
+                 * que se esta cargando una actividad.
+                 * target:indica el id del nodo donde queremos
+                 * **/
+                document.body.appendChild(this.standby.domNode);
                 this.bitacora = new Bitacora({
-
+                    master:this
                 });
                 this.filtro = new Filtro({
                     master:this

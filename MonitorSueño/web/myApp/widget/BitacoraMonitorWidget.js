@@ -151,7 +151,8 @@
                
                 var fechaInicio = this.fechaInicioWidget.get("displayedValue") + " " + this.fechaInicioTimeWidget.get("displayedValue");
                 var fechaFin = this.fechaFinWidget.get("displayedValue") + " " + this.fechaFinTimeWidget.get("displayedValue");
-                var inicio = createDate(fechaInicio).getTime()/1000;
+                var inicio = createDate(fechaInicio).getTime() / 1000;
+                
                 /**Con el getTime() se obtiene el número de milisegundos**/
                 var fin = createDate(fechaFin).getTime()/1000;
                 /*
@@ -159,7 +160,7 @@
                 var fin = new Date(this.fechaFinWidget.value).getTime() / 1000;
                 */
                 var url = "http://localhost:63915/api/GetSuenos/" + object.usuarioId + "/" + inicio + "/" + fin;
-               
+                this.master.iniciarCarga();
                 var deferred = xhr.get(url, {
                     /*data: json.toJson({
                         "usuario_id": object.usuarioId,
@@ -180,6 +181,7 @@
                         this.bitacoraGrid.set('collection', suenosStore);
                         this.bitacoraGrid.renderRow(response);
                         this.bitacoraGrid.refresh();
+                        this.master.terminarCarga();
                         //alert(response)
                     }),
                     lang.hitch(this, function (error) {

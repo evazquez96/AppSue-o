@@ -321,6 +321,8 @@ public class MonitorHelper
                              * **/
                             if (evento.fecha_inicio == inicio)
                             {//Verifica si la fecha_inicio del evento coincide con la fecha inicio del sueño
+
+                                /*****/
                                 evento.fecha_fin = fin;
                                 evento.tipo_actividad_id = (int)StatusActividad.SUENO;
                                 evento.comentarios = c;

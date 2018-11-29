@@ -48,9 +48,7 @@
 ) {
         return declare([OnDemandGrid, Dgrid, DijitRegistry, Selection, Editor, Keyboard], {
 
-            nuevoSueno: new NuevoSueno({
-
-            }),
+            nuevoSueno:null,
             myDialog: null,
             master:null,
             columns: [
@@ -78,6 +76,9 @@
             ],
 
             _initEvents: function () {
+                this.nuevoSueno = new NuevoSueno({
+                    master:this
+                })
                 this.myDialog = new Dialog({
                     title: "Nuevo Sueño",
                     content: this.nuevoSueno,
