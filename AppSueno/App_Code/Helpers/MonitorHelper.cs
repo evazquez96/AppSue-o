@@ -324,6 +324,8 @@ public class MonitorHelper
                         //Inicio
                         if (evento.fecha_fin == null)
                         {
+                            
+
                             int auxActividad = evento.tipo_actividad_id;
 
                             /**
@@ -344,7 +346,17 @@ public class MonitorHelper
                                 nuevo.comentarios = "Automatico";
                                 nuevo.usuario_id = evento.usuario_id;
                                 //nuevo.tipo_actividad_id = (int)StatusActividad.SUENO;
-                                nuevo.tipo_actividad_id = auxActividad;
+                                if (evento.tipo_actividad_id == (int)StatusActividad.SUENO)
+                                {
+                                    /**Verificamos si el evento actual sea un sueño**/
+                                    nuevo.tipo_actividad_id = (int)StatusActividad.INACTIVO;
+
+                                }
+                                else
+                                {
+                                    nuevo.tipo_actividad_id = auxActividad;
+                                }
+                                //nuevo.tipo_actividad_id = ;
                                 //nuevo.sql_id = 0;
                                 nuevo.sql_id = 999;
                                 nuevo.automatico = 0;
@@ -371,10 +383,21 @@ public class MonitorHelper
                                 //var b = evento.fecha_fin ?? DateTime.Now;
                                 nuevo2.fecha_inicio = fin;
                                 nuevo2.fecha_fin = null;
+                                if (evento.tipo_actividad_id == (int)StatusActividad.SUENO)
+                                {
+                                    /**Verificamos si el evento actual sea un sueño**/
+                                    nuevo2.tipo_actividad_id = (int)StatusActividad.INACTIVO;
+
+                                }
+                                else
+                                {
+                                    nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
+                                }
                                 nuevo2.comentarios = "Automatico";
                                 nuevo2.comentarios = evento.comentarios;
                                 nuevo2.usuario_id = evento.usuario_id;
-                                nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
+
+                                //nuevo2.tipo_actividad_id = evento.tipo_actividad_id;
                                 nuevo2.sql_id = 999;
                                 nuevo2.automatico = 0;
                                 nuevo2.semaforo_id = calcularSemaforoId(nuevo2.fecha_inicio, DateTime.Now);//Se agrego

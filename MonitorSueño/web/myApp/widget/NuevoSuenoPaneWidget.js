@@ -2,7 +2,7 @@
     "dojo/_base/lang",
     "dojo/dom",
     "dijit/registry",
-    "dojo/json",
+    "dojo/_base/json",
     "dojo/store/Memory",
     "dojo/_base/array",
     "dijit/_WidgetBase",
@@ -168,7 +168,54 @@
                          * Aquí se manda a llamar al servicio para el recalculo 
                          * de los semaforos.
                          */
-                        console.log(response);
+                        
+                        var respuestaJson = json.fromJson(response);
+                        //debugger;
+                        /*
+                        Result.id - 1
+                        "Error, existen sueños registrados en el rango de fechas seleccionado"
+                        Result.id - 2
+                        "Error, no existen eventos de inactividad en el rango de fechas seleccionado"
+                        Result.id - 3
+                        "Error, la fecha inicio no puede ser mayor a la final"
+                        Result.id - 4
+                        "Error, la fecha inicio no puede ser mayor a la actual"
+                        Result.id - 5
+                        */
+                        //console.log(id);
+                        debugger
+                        switch (respuestaJson.id) {
+                            case -1:
+                                this.master.master.master.error();
+                                alert("Error, existen sueños registrados en el rango de fechas seleccionado")
+                                break;
+                            case -2:
+                                this.master.master.master.error();
+                                alert("Error, no existen eventos de inactividad en el rango de fechas seleccionado");
+                                break;
+                            case -3:
+                                this.master.master.master.error();
+                                alert("Error, la fecha inicio no puede ser mayor a la final")
+                                break;
+                            case -4:
+                                this.master.master.master.error();
+                                alert("Error, la fecha inicio no puede ser mayor a la actual")
+                                break;
+                            case -5:
+                                this.master.master.master.error();
+                                alert("Error, la fecha fin no puede ser mayor a la actual")
+                                break;
+                            case -6:
+                                this.master.master.master.error();
+                                alert("Error, existe un sueño actual en curso")
+                                break;
+                            default:
+                                /***Sueño insertado con éxito**/
+                                alert("Sueño insertado con éxito")
+                                break;
+                                
+                        }
+                        /*****/
                         this.master.master.master.terminarCarga();
                     }), lang.hitch(this,function(error) {
                         this.master.terminarCarga();

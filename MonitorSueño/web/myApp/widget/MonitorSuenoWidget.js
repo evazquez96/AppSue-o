@@ -68,18 +68,23 @@
             standby:null,
             iniciarCarga: function () {
                 this.standby.set("color", "#5A748F");
+                this.standby.set("text", "Cargando ...");
                 this.standby.show();
             },
             terminarCarga: function () {
                 this.standby.hide();
             },
+            error: function () {
+                this.standby.set("color", "red");
+            },
             postCreate: function () {
                 var domNode = this.domNode;
                 this.inherited(arguments);
-                this.standby= new Standby({
+                this.standby = new Standby({
                     target: 'contenedor',
-                    text:'Cargando'
-                })
+                    //text: 'Cargando',
+                    //image: ''
+                });
                 /***
                  * La propiedad de standby nos permitira 
                  * agregar un circulo que gire indicando 
